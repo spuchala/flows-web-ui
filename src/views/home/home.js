@@ -72,7 +72,7 @@ const Home = () => {
     let baseY = 0;
 
     input.forEach(({ name }) => {
-      baseX = baseX + 50;
+      baseX = baseX + 0;
       baseY = baseY + 100;
 
       nodes.push({
