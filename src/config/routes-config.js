@@ -7,6 +7,9 @@ const RoutesConfig = () => {
   return (
     <Routes>
       <Route exact path="/" element={<Home />} />
+      <Route exact path="/flows" element={<Home />} />
+      <Route exact path="/departments" element={<Home />} />
+      <Route exact path="/people" element={<Home />} />
     </Routes>
   );
 };
