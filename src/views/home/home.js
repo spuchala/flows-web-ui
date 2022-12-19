@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Typography from "@mui/material/Typography";
+
+import Button from "@mui/material/Button";
 
 import * as XLSX from "xlsx";
 
@@ -28,7 +29,7 @@ const Home = () => {
   const processAndSetNodes = (fileReadData) => {
     const nodesWorkSheet = fileReadData.Sheets["Nodes"];
     const parsedNodesData = XLSX.utils.sheet_to_json(nodesWorkSheet, {
-      header: 1,
+      header: 1
     });
     const synthesizedNodesData = synthesizeSheetFeed(parsedNodesData);
     const nodesForFlows = getNodesForFlows(synthesizedNodesData);
@@ -38,7 +39,7 @@ const Home = () => {
   const processAndSetRelationships = (fileReadData) => {
     const nodesWorkSheet = fileReadData.Sheets["Relationships"];
     const parsedRelationshipsData = XLSX.utils.sheet_to_json(nodesWorkSheet, {
-      header: 1,
+      header: 1
     });
     const synthesizedRelationshipsData = synthesizeSheetFeed(
       parsedRelationshipsData
@@ -78,7 +79,7 @@ const Home = () => {
       nodes.push({
         id: name,
         data: { label: name },
-        position: { x: baseX + 50, y: baseY + 100 },
+        position: { x: baseX + 50, y: baseY + 100 }
       });
     });
     return nodes;
@@ -90,7 +91,7 @@ const Home = () => {
       relationships.push({
         id: index.toString(),
         source: fromParty,
-        target: toParty,
+        target: toParty
       });
     });
     return relationships;
@@ -105,12 +106,14 @@ const Home = () => {
 
   return (
     <div className="container">
-      <Typography variant="h4" gutterBottom>
+      <Button variant="contained" color="secondary" component="label">
         Upload Excel
-      </Typography>
-      <input type="file" onChange={handleFileUpload}></input>
+        <input type="file" onChange={handleFileUpload} hidden />
+      </Button>
       {nodes && relationships && (
-        <Flows nodes={nodes} edges={relationships}></Flows>
+        <div className="flowsContainer">
+          <Flows nodes={nodes} edges={relationships}></Flows>
+        </div>
       )}
     </div>
   );
