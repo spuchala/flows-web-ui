@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import * as XLSX from "xlsx";
 
 import Flows from "../../components/flows/flows";
+import IconBar from "../../components/icon-bar/icon-bar";
+import { flowLayOutsConfig } from "../../config/flow-layout-config";
 import "./home.css";
 
 const Home = () => {
@@ -112,6 +114,7 @@ const Home = () => {
       </Button>
       {nodes && relationships && (
         <div className="flowsContainer">
+          <IconBar config={flowLayOutsConfig} />
           <Flows nodes={nodes} edges={relationships}></Flows>
         </div>
       )}
