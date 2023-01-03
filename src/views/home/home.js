@@ -7,6 +7,10 @@ import * as XLSX from "xlsx";
 import Flows from "../../components/flows/flows";
 import IconBar from "../../components/icon-bar/icon-bar";
 import { flowLayOutsConfig } from "../../config/flow-layout-config";
+import {
+  getNodesFromExcel,
+  getRelationshipsFromExcel
+} from "../../utils/excel-utils";
 import "./home.css";
 
 const Home = () => {
@@ -22,88 +26,14 @@ const Home = () => {
     reader.onload = function (e) {
       const fileData = e.target.result;
       const fileReadData = XLSX.read(fileData, { type: "binary" });
-      processAndSetNodes(fileReadData);
-      processAndSetRelationships(fileReadData);
+      setNodes(getNodesFromExcel(fileReadData));
+      setRelationships(getRelationshipsFromExcel(fileReadData));
     };
     reader.readAsBinaryString(file);
   };
 
-  const processAndSetNodes = (fileReadData) => {
-    const nodesWorkSheet = fileReadData.Sheets["Nodes"];
-    const parsedNodesData = XLSX.utils.sheet_to_json(nodesWorkSheet, {
-      header: 1
-    });
-    const synthesizedNodesData = synthesizeSheetFeed(parsedNodesData);
-    const nodesForFlows = getNodesForFlows(synthesizedNodesData);
-    setNodes(nodesForFlows);
-  };
-
-  const processAndSetRelationships = (fileReadData) => {
-    const nodesWorkSheet = fileReadData.Sheets["Relationships"];
-    const parsedRelationshipsData = XLSX.utils.sheet_to_json(nodesWorkSheet, {
-      header: 1
-    });
-    const synthesizedRelationshipsData = synthesizeSheetFeed(
-      parsedRelationshipsData
-    );
-    const relationshipsForFlows = getRelationshipsForFlows(
-      synthesizedRelationshipsData
-    );
-    setRelationships(relationshipsForFlows);
-  };
-
-  const synthesizeSheetFeed = (input) => {
-    let synthesizedList = [];
-    const columns = input[0];
-    //remove columns
-    input = input.slice(1);
-    input.forEach((element) => {
-      let entry = {};
-      columns.forEach((column, columnIndex) => {
-        entry[toCamelCase(column.toString())] = element[columnIndex]
-          .toString()
-          .trim();
-      });
-      synthesizedList.push(entry);
-    });
-    return synthesizedList;
-  };
-
-  const getNodesForFlows = (input) => {
-    let nodes = [];
-    let baseX = 650;
-    let baseY = 0;
-
-    input.forEach(({ name }) => {
-      baseX = baseX + 0;
-      baseY = baseY + 100;
-
-      nodes.push({
-        id: name,
-        data: { label: name },
-        position: { x: baseX + 50, y: baseY + 100 }
-      });
-    });
-    return nodes;
-  };
-
-  const getRelationshipsForFlows = (input) => {
-    let relationships = [];
-    input.forEach(({ fromParty, toParty }, index) => {
-      relationships.push({
-        id: index.toString(),
-        source: fromParty,
-        target: toParty
-      });
-    });
-    return relationships;
-  };
-
-  const toCamelCase = (text) => {
-    const formatted = text
-      .toLowerCase()
-      .replace(/[-_\s.]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""));
-    return formatted.substring(0, 1).toLowerCase() + formatted.substring(1);
+  const handleLayoutChange = (layoutType) => {
+    debugger;
   };
 
   return (
@@ -114,7 +44,10 @@ const Home = () => {
       </Button>
       {nodes && relationships && (
         <div className="flowsContainer">
-          <IconBar config={flowLayOutsConfig} />
+          <IconBar
+            config={flowLayOutsConfig}
+            callback={(layoutType) => handleLayoutChange(layoutType)}
+          />
           <Flows nodes={nodes} edges={relationships}></Flows>
         </div>
       )}

@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 
-const IconBar = ({ config }) => {
+const IconBar = ({ config, callback }) => {
   const [selectedOption, setSelectedOption] = useState(config[0].key);
 
   const handleOptionChange = (key) => {
-    debugger;
     setSelectedOption(key);
+    callback(key);
   };
 
   return (
