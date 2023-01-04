@@ -15,9 +15,9 @@ const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 function Flows({ nodes = { initialNodes }, edges = { initialEdges } }) {
   return (
     <div className="flowsContainer">
-      <div style={{ height: 1000, width: 1620, textAlign: "center" }}>
+      <div style={{ height: 700, width: 1500, textAlign: "center" }}>
         <ReactFlow nodes={nodes} edges={edges} fitView>
-          <Background color="#99b3ec" variant="cross" />
+          <Background color="#99b3ec" />
         </ReactFlow>
       </div>
     </div>

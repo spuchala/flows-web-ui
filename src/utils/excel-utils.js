@@ -1,4 +1,5 @@
 import * as XLSX from "xlsx";
+import { MarkerType } from "reactflow";
 
 const basePosition = { x: 0, y: 0 };
 const edgeType = "smoothstep";
@@ -34,7 +35,10 @@ const getRelationshipsForReactFlows = (input) => {
       id: index.toString(),
       source: fromParty,
       target: toParty,
-      type: edgeType
+      type: edgeType,
+      markerEnd: {
+        type: MarkerType.ArrowClosed
+      }
     });
   });
   return relationships;
@@ -42,13 +46,7 @@ const getRelationshipsForReactFlows = (input) => {
 
 const getNodesForReactFlows = (input) => {
   let nodes = [];
-  let baseX = 650;
-  let baseY = 0;
-
   input.forEach(({ name }) => {
-    baseX = baseX + 0;
-    baseY = baseY + 100;
-
     nodes.push({
       id: name,
       data: { label: name },
