@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 
 import Button from "@mui/material/Button";
-
 import * as XLSX from "xlsx";
+import "reactflow/dist/style.css";
 
-import Flows from "../../components/flows/flows";
 import IconBar from "../../components/icon-bar/icon-bar";
 import { flowLayOutsConfig } from "../../config/flow-layout-config";
 import {
   getNodesFromExcel,
   getRelationshipsFromExcel
 } from "../../utils/excel-utils";
+import { getLayoutedElements } from "../../utils/flows-utils";
+import Flows from "../../components/flows/flows";
 import "./home.css";
 
 const Home = () => {
   const [nodes, setNodes] = useState(null);
-  const [relationships, setRelationships] = useState(null);
+  const [edges, setEdges] = useState(null);
 
   const handleFileUpload = (e) => {
     e.preventDefault();
@@ -26,14 +27,25 @@ const Home = () => {
     reader.onload = function (e) {
       const fileData = e.target.result;
       const fileReadData = XLSX.read(fileData, { type: "binary" });
-      setNodes(getNodesFromExcel(fileReadData));
-      setRelationships(getRelationshipsFromExcel(fileReadData));
+      const initialNodes = getNodesFromExcel(fileReadData);
+      const initialEdges = getRelationshipsFromExcel(fileReadData);
+      const { nodes: layoutedNodes, edges: layoutedEdges } =
+        getLayoutedElements(initialNodes, initialEdges);
+
+      setNodes(layoutedNodes);
+      setEdges(layoutedEdges);
     };
     reader.readAsBinaryString(file);
   };
 
   const handleLayoutChange = (layoutType) => {
-    debugger;
+    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+      nodes,
+      edges,
+      layoutType
+    );
+    setNodes([...layoutedNodes]);
+    setEdges([...layoutedEdges]);
   };
 
   return (
@@ -42,13 +54,13 @@ const Home = () => {
         Upload Excel
         <input type="file" onChange={handleFileUpload} hidden />
       </Button>
-      {nodes && relationships && (
+      {nodes && edges && (
         <div className="flowsContainer">
           <IconBar
             config={flowLayOutsConfig}
             callback={(layoutType) => handleLayoutChange(layoutType)}
           />
-          <Flows nodes={nodes} edges={relationships}></Flows>
+          <Flows nodes={nodes} edges={edges} />
         </div>
       )}
     </div>

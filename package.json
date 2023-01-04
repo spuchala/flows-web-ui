@@ -17,7 +17,8 @@
     "react-scripts": "5.0.1",
     "reactflow": "^11.3.1",
     "web-vitals": "^2.1.4",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "dagre": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

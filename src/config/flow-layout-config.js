@@ -2,9 +2,8 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ViewColumnIcon from "@mui/icons-material/ViewColumn";
 
 const flowLayoutTypes = {
-  FLOW: "flowView",
-  TABLE_VIEW: "tableView",
-  SEQUENCE_FLOW: "sequenceFlow"
+  FLOW: "TB",
+  SEQUENCE_FLOW: "LR"
 };
 
 const flowLayOutsConfig = [

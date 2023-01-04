@@ -1,5 +1,8 @@
 import * as XLSX from "xlsx";
 
+const basePosition = { x: 0, y: 0 };
+const edgeType = "smoothstep";
+
 const getNodesFromExcel = (fileReadData) => {
   const nodesWorkSheet = fileReadData.Sheets["Nodes"];
   const parsedNodesData = XLSX.utils.sheet_to_json(nodesWorkSheet, {
@@ -30,7 +33,8 @@ const getRelationshipsForReactFlows = (input) => {
     relationships.push({
       id: index.toString(),
       source: fromParty,
-      target: toParty
+      target: toParty,
+      type: edgeType
     });
   });
   return relationships;
@@ -48,7 +52,7 @@ const getNodesForReactFlows = (input) => {
     nodes.push({
       id: name,
       data: { label: name },
-      position: { x: baseX + 50, y: baseY + 100 }
+      position: basePosition
     });
   });
   return nodes;
