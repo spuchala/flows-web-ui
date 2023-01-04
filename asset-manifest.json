@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/flows/static/css/main.800f4b62.css",
-    "main.js": "/flows/static/js/main.776c2891.js",
-    "static/js/787.f90f3017.chunk.js": "/flows/static/js/787.f90f3017.chunk.js",
-    "index.html": "/flows/index.html",
-    "main.800f4b62.css.map": "/flows/static/css/main.800f4b62.css.map",
-    "main.776c2891.js.map": "/flows/static/js/main.776c2891.js.map",
-    "787.f90f3017.chunk.js.map": "/flows/static/js/787.f90f3017.chunk.js.map"
+    "main.css": "/flows-web-ui/static/css/main.800f4b62.css",
+    "main.js": "/flows-web-ui/static/js/main.366821c6.js",
+    "static/js/787.f90f3017.chunk.js": "/flows-web-ui/static/js/787.f90f3017.chunk.js",
+    "index.html": "/flows-web-ui/index.html",
+    "main.800f4b62.css.map": "/flows-web-ui/static/css/main.800f4b62.css.map",
+    "main.366821c6.js.map": "/flows-web-ui/static/js/main.366821c6.js.map",
+    "787.f90f3017.chunk.js.map": "/flows-web-ui/static/js/787.f90f3017.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.800f4b62.css",
-    "static/js/main.776c2891.js"
+    "static/js/main.366821c6.js"
   ]
 }
