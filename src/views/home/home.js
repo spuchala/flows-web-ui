@@ -19,6 +19,7 @@ const Home = () => {
   const [edges, setEdges] = useState(null);
 
   const handleFileUpload = (e) => {
+    console.log("hello");
     e.preventDefault();
 
     const files = e.target.files,
