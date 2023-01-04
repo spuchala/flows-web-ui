@@ -6,10 +6,7 @@ import "reactflow/dist/style.css";
 
 import IconBar from "../../components/icon-bar/icon-bar";
 import { flowLayOutsConfig } from "../../config/flow-layout-config";
-import {
-  getNodesFromExcel,
-  getRelationshipsFromExcel
-} from "../../utils/excel-utils";
+import { getNodesAndEdgesFromExcel } from "../../utils/excel-utils";
 import { getLayoutedElements } from "../../utils/flows-utils";
 import Flows from "../../components/flows/flows";
 import "./home.css";
@@ -28,8 +25,8 @@ const Home = () => {
     reader.onload = function (e) {
       const fileData = e.target.result;
       const fileReadData = XLSX.read(fileData, { type: "binary" });
-      const initialNodes = getNodesFromExcel(fileReadData);
-      const initialEdges = getRelationshipsFromExcel(fileReadData);
+      const { nodes: initialNodes, edges: initialEdges } =
+        getNodesAndEdgesFromExcel(fileReadData);
       const { nodes: layoutedNodes, edges: layoutedEdges } =
         getLayoutedElements(initialNodes, initialEdges);
 

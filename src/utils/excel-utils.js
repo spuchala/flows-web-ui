@@ -4,6 +4,26 @@ import { MarkerType } from "reactflow";
 const basePosition = { x: 0, y: 0 };
 const edgeType = "smoothstep";
 
+const getNodesAndEdgesFromExcel = (fileReadData) => {
+  const edges = getRelationshipsFromExcel(fileReadData);
+  const nodes = [];
+  const nodesSet = new Set();
+
+  edges.forEach((edge) => {
+    nodesSet.add(edge.source);
+    nodesSet.add(edge.target);
+  });
+  debugger;
+  nodesSet.forEach((nodeItem) => {
+    nodes.push({
+      id: nodeItem,
+      data: { label: nodeItem },
+      position: basePosition
+    });
+  });
+  return { nodes, edges };
+};
+
 const getNodesFromExcel = (fileReadData) => {
   const nodesWorkSheet = fileReadData.Sheets["Nodes"];
   const parsedNodesData = XLSX.utils.sheet_to_json(nodesWorkSheet, {
@@ -80,4 +100,8 @@ const toCamelCase = (text) => {
   return formatted.substring(0, 1).toLowerCase() + formatted.substring(1);
 };
 
-export { getNodesFromExcel, getRelationshipsFromExcel };
+export {
+  getNodesFromExcel,
+  getRelationshipsFromExcel,
+  getNodesAndEdgesFromExcel
+};
