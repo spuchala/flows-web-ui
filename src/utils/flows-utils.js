@@ -20,7 +20,6 @@ const getLayoutedElements = (nodes, edges, direction = "TB") => {
   dagre.layout(dagreGraph);
 
   nodes.forEach((node) => {
-    debugger;
     const nodeWithPosition = dagreGraph.node(node.id);
     node.targetPosition = isHorizontal ? "left" : "top";
     node.sourcePosition = isHorizontal ? "right" : "bottom";
@@ -38,4 +37,28 @@ const getLayoutedElements = (nodes, edges, direction = "TB") => {
   return { nodes, edges };
 };
 
-export { getLayoutedElements };
+const getMermaidGraphFromEdges = (edges) => {
+  let graphContent = "graph LR;";
+  edges.forEach(({ source, target }) => {
+    graphContent =
+      graphContent +
+      `${source.replace(" ", "_")}-->${target.replace(" ", "_")};`;
+  });
+  return graphContent;
+};
+
+const getMermaidSequenceDiagremFromEdges = (edges) => {
+  let graphContent = "sequenceDiagram;";
+  edges.forEach(({ source, target }) => {
+    graphContent =
+      graphContent +
+      `${source.replace(" ", "_")}->>${target.replace(" ", "_")}: ;`;
+  });
+  return graphContent;
+};
+
+export {
+  getLayoutedElements,
+  getMermaidGraphFromEdges,
+  getMermaidSequenceDiagremFromEdges
+};

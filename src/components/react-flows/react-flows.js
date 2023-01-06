@@ -3,7 +3,7 @@ import React from "react";
 import ReactFlow, { Background } from "reactflow";
 
 import "reactflow/dist/style.css";
-import "./flows.css";
+import "./react-flows.css";
 
 const initialNodes = [
   { id: "1", position: { x: 700, y: 100 }, data: { label: "1" } },
@@ -12,7 +12,7 @@ const initialNodes = [
 
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
-function Flows({ nodes = { initialNodes }, edges = { initialEdges } }) {
+function ReactFlows({ nodes = { initialNodes }, edges = { initialEdges } }) {
   return (
     <div className="flowsContainer">
       <div style={{ height: 700, width: 1500, textAlign: "center" }}>
@@ -24,4 +24,4 @@ function Flows({ nodes = { initialNodes }, edges = { initialEdges } }) {
   );
 }
 
-export default Flows;
+export default ReactFlows;

@@ -13,7 +13,6 @@ const getNodesAndEdgesFromExcel = (fileReadData) => {
     nodesSet.add(edge.source);
     nodesSet.add(edge.target);
   });
-  debugger;
   nodesSet.forEach((nodeItem) => {
     nodes.push({
       id: nodeItem,
