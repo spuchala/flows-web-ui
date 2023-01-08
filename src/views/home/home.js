@@ -9,19 +9,18 @@ import {
   flowLayOutsConfig,
   flowLayoutTypes
 } from "../../config/flow-layout-config";
-import { getNodesAndEdgesFromExcel } from "../../utils/excel-utils";
+import { getNodesEdgesAndGroupsFromExcel } from "../../utils/excel-utils";
 import {
   getLayoutedElements,
-  getMermaidGraphFromEdges,
-  getMermaidSequenceDiagremFromEdges
+  getMermaidGraphFromFlowData,
+  getMermaidSequenceDiagremFromFlowData
 } from "../../utils/flows-utils";
 import ReactFlows from "../../components/react-flows/react-flows";
 import "./home.css";
 import MermaidFlows from "../../components/mermaid-flows/mermaid-flows";
 
 const Home = () => {
-  const [nodes, setNodes] = useState(null);
-  const [edges, setEdges] = useState(null);
+  const [flowData, setFlowData] = useState(null);
   const [mermaidContent, setMermaidContent] = useState(null);
   const [flowLayoutChanged, setFlowLayoutChanged] = useState(false);
   const useReactFlows = false;
@@ -36,14 +35,15 @@ const Home = () => {
       const fileData = e.target.result;
       const fileReadData = XLSX.read(fileData, { type: "binary" });
 
-      const { nodes: initialNodes, edges: initialEdges } =
-        getNodesAndEdgesFromExcel(fileReadData);
-      const { nodes: layoutedNodes, edges: layoutedEdges } =
-        getLayoutedElements(initialNodes, initialEdges);
-      const mermaidContent = getMermaidGraphFromEdges(initialEdges);
+      const flowData = getNodesEdgesAndGroupsFromExcel(fileReadData);
+      const { layoutedNodes, layoutedEdges } = getLayoutedElements(flowData);
+      const mermaidContent = getMermaidGraphFromFlowData(flowData);
 
-      setNodes(layoutedNodes);
-      setEdges(layoutedEdges);
+      setFlowData({
+        nodes: layoutedNodes,
+        edges: layoutedEdges,
+        groups: flowData.groups
+      });
       setMermaidContent(mermaidContent);
     };
     reader.readAsBinaryString(file);
@@ -52,15 +52,19 @@ const Home = () => {
   const handleLayoutChange = (layoutType) => {
     setFlowLayoutChanged(true);
     if (useReactFlows) {
-      const { nodes: layoutedNodes, edges: layoutedEdges } =
-        getLayoutedElements(nodes, edges, layoutType);
-      setNodes([...layoutedNodes]);
-      setEdges([...layoutedEdges]);
+      const { nodes, edges } = flowData;
+      const { layoutedNodes, layoutedEdges } = getLayoutedElements(
+        nodes,
+        edges,
+        layoutType
+      );
+      setFlowData({ nodes: [...layoutedNodes], edges: [...layoutedEdges] });
     } else {
       if (layoutType === flowLayoutTypes.FLOW) {
-        setMermaidContent(getMermaidGraphFromEdges(edges));
+        setMermaidContent(getMermaidGraphFromFlowData(flowData));
       } else if (layoutType === flowLayoutTypes.SEQUENCE_FLOW) {
-        setMermaidContent(getMermaidSequenceDiagremFromEdges(edges));
+        debugger;
+        setMermaidContent(getMermaidSequenceDiagremFromFlowData(flowData));
       }
     }
   };
@@ -71,15 +75,15 @@ const Home = () => {
         Upload Excel
         <input type="file" onChange={handleFileUpload} hidden />
       </Button>
-      {nodes && edges && (
+      {flowData && (
         <div className="flowsContainer">
           <IconBar
             config={flowLayOutsConfig}
             callback={(layoutType) => handleLayoutChange(layoutType)}
           />
           <div className="flowsRenderContainer">
-            {useReactFlows && nodes && edges && (
-              <ReactFlows nodes={nodes} edges={edges} />
+            {useReactFlows && flowData && (
+              <ReactFlows nodes={flowData.nodes} edges={flowData.edges} />
             )}
             {!useReactFlows && mermaidContent && (
               <MermaidFlows
