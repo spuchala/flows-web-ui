@@ -1,36 +1,27 @@
 import * as XLSX from "xlsx";
 import { MarkerType } from "reactflow";
 
+import { toCamelCase, replaceSpaceWithUnderscore } from "./text-utils";
+
 const basePosition = { x: 0, y: 0 };
 const edgeType = "smoothstep";
 
-const getNodesAndEdgesFromExcel = (fileReadData) => {
+const getNodesEdgesAndGroupsFromExcel = (fileReadData) => {
   const edges = getRelationshipsFromExcel(fileReadData);
-  const nodes = [];
-  const nodesSet = new Set();
+  const { nodes, groups } = getNodesAndGroupsFromExcel(fileReadData);
 
-  edges.forEach((edge) => {
-    nodesSet.add(edge.source);
-    nodesSet.add(edge.target);
-  });
-  nodesSet.forEach((nodeItem) => {
-    nodes.push({
-      id: nodeItem,
-      data: { label: nodeItem },
-      position: basePosition
-    });
-  });
-  return { nodes, edges };
+  return { nodes, groups, edges };
 };
 
-const getNodesFromExcel = (fileReadData) => {
+const getNodesAndGroupsFromExcel = (fileReadData) => {
   const nodesWorkSheet = fileReadData.Sheets["Nodes"];
   const parsedNodesData = XLSX.utils.sheet_to_json(nodesWorkSheet, {
     header: 1
   });
   const synthesizedNodesData = synthesizeSheetFeed(parsedNodesData);
-  const nodesForFlows = getNodesForReactFlows(synthesizedNodesData);
-  return nodesForFlows;
+  const { nodes, groups } =
+    getNodesAndGroupsForReactFlows(synthesizedNodesData);
+  return { nodes, groups };
 };
 
 const getRelationshipsFromExcel = (fileReadData) => {
@@ -63,16 +54,27 @@ const getRelationshipsForReactFlows = (input) => {
   return relationships;
 };
 
-const getNodesForReactFlows = (input) => {
+const getNodesAndGroupsForReactFlows = (input) => {
   let nodes = [];
-  input.forEach(({ name }) => {
+  let groups = new Map();
+
+  input.forEach(({ name, department }) => {
+    const nodeName = replaceSpaceWithUnderscore(name);
     nodes.push({
-      id: name,
-      data: { label: name },
+      id: nodeName,
+      parentNode: department,
+      data: { label: nodeName },
       position: basePosition
     });
+
+    if (groups.has(department)) {
+      groups.get(department).push(nodeName);
+    } else {
+      groups.set(department, [nodeName]);
+    }
   });
-  return nodes;
+
+  return { nodes, groups };
 };
 
 const synthesizeSheetFeed = (input) => {
@@ -84,23 +86,12 @@ const synthesizeSheetFeed = (input) => {
     let entry = {};
     columns.forEach((column, columnIndex) => {
       entry[toCamelCase(column.toString())] = element[columnIndex]
-        .toString()
-        .trim();
+        ? element[columnIndex].toString().trim()
+        : "";
     });
     synthesizedList.push(entry);
   });
   return synthesizedList;
 };
 
-const toCamelCase = (text) => {
-  const formatted = text
-    .toLowerCase()
-    .replace(/[-_\s.]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""));
-  return formatted.substring(0, 1).toLowerCase() + formatted.substring(1);
-};
-
-export {
-  getNodesFromExcel,
-  getRelationshipsFromExcel,
-  getNodesAndEdgesFromExcel
-};
+export { getNodesEdgesAndGroupsFromExcel };

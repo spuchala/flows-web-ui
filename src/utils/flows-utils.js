@@ -1,11 +1,14 @@
 import dagre from "dagre";
 
+import { replaceSpaceWithUnderscore } from "./text-utils";
+
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
 const nodeWidth = 150;
 const nodeHeight = 25;
 
-const getLayoutedElements = (nodes, edges, direction = "TB") => {
+const getLayoutedElements = (flowData, direction = "TB") => {
+  const { nodes, edges } = flowData;
   const isHorizontal = direction === "LR";
   dagreGraph.setGraph({ rankdir: direction });
 
@@ -34,31 +37,33 @@ const getLayoutedElements = (nodes, edges, direction = "TB") => {
     return node;
   });
 
-  return { nodes, edges };
+  return { layoutedNodes: nodes, layoutedEdges: edges };
 };
 
-const getMermaidGraphFromEdges = (edges) => {
+const getMermaidGraphFromFlowData = (flowData) => {
+  const { edges } = flowData;
   let graphContent = "graph LR;";
   edges.forEach(({ source, target }) => {
     graphContent =
       graphContent +
-      `${source.replace(" ", "_")}-->${target.replace(" ", "_")};`;
+      `${source.replace(" ", "_")}-->${replaceSpaceWithUnderscore(target)};`;
   });
   return graphContent;
 };
 
-const getMermaidSequenceDiagremFromEdges = (edges) => {
-  let graphContent = "sequenceDiagram;";
+const getMermaidSequenceDiagremFromFlowData = (flowData) => {
+  const { edges } = flowData;
+  let graphContent = "sequenceDiagram;autonumber;";
   edges.forEach(({ source, target }) => {
     graphContent =
       graphContent +
-      `${source.replace(" ", "_")}->>${target.replace(" ", "_")}: ;`;
+      `${source.replace(" ", "_")}->>${replaceSpaceWithUnderscore(target)}: ;`;
   });
   return graphContent;
 };
 
 export {
   getLayoutedElements,
-  getMermaidGraphFromEdges,
-  getMermaidSequenceDiagremFromEdges
+  getMermaidGraphFromFlowData,
+  getMermaidSequenceDiagremFromFlowData
 };

@@ -7,6 +7,7 @@ mermaid.initialize({
 });
 
 const MermaidFlows = ({ content, flowLayoutChanged }) => {
+  console.log(content);
   useEffect(() => {
     if (flowLayoutChanged) {
       const mermaidElement = document.getElementById("mermaid-chart");
