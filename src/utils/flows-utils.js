@@ -41,12 +41,19 @@ const getLayoutedElements = (flowData, direction = "TB") => {
 };
 
 const getMermaidGraphFromFlowData = (flowData) => {
-  const { edges } = flowData;
+  const { edges, groups } = flowData;
   let graphContent = "graph LR;";
   edges.forEach(({ source, target }) => {
     graphContent =
       graphContent +
       `${source.replace(" ", "_")}-->${replaceSpaceWithUnderscore(target)};`;
+  });
+  groups.forEach((groupValues, groupName) => {
+    graphContent = graphContent + `subgraph ${groupName};`;
+    groupValues.forEach((value) => {
+      graphContent = graphContent + `${value};`;
+    });
+    graphContent = graphContent + "end;";
   });
   return graphContent;
 };
