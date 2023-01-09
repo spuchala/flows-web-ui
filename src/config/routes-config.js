@@ -9,7 +9,7 @@ const RoutesConfig = () => {
     <Routes>
       <Route exact path="/" element={<Home />} />
       <Route exact path="/flows" element={<Home />} />
-      <Route exact path="/flows-web-ui" element={<Home />} />
+      <Route exact path="/flows-web-ui" element={<About />} />
       <Route exact path="/departments" element={<Home />} />
       <Route exact path="/people" element={<Home />} />
       <Route exact path="/about" element={<About />} />
