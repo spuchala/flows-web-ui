@@ -67,10 +67,12 @@ const getNodesAndGroupsForReactFlows = (input) => {
       position: basePosition
     });
 
-    if (groups.has(department)) {
-      groups.get(department).push(nodeName);
-    } else {
-      groups.set(department, [nodeName]);
+    if (department) {
+      if (groups.has(department)) {
+        groups.get(department).push(nodeName);
+      } else {
+        groups.set(department, [nodeName]);
+      }
     }
   });
 
