@@ -113,13 +113,14 @@ const NavBar = () => {
             FLOWS
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {adminPagesConfig.map(({ title }, index) => (
+            {adminPagesConfig.map(({ title, route }, index) => (
               <Button
                 key={index}
-                onClick={handleCloseNavMenu}
+                //onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
+                href = {route}
               >
-                {title}
+              {title}
               </Button>
             ))}
           </Box>

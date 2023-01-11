@@ -14,16 +14,14 @@ const About = () => {
         <Typography variant="h6" gutterBottom sx={{ color: "text.primary" }}>
           About Us
         </Typography>
-        <Typography variant="h4" gutterBottom>
+{/*         <Typography variant="h4" gutterBottom>
           About Us title goes here
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          Stranded. Yes, she was now the first person ever to land on Venus, but
-          that was of little consequence. Her name would be read by millions in
-          school as the first to land here, but that celebrity would never
-          actually be seen by her. She looked at the control panel and knew
-          there was nothing that would ever get it back into working order. She
-          was the first and it was not clear this would also be her last.
+        </Typography> */}
+        <Typography variant="body2" align = "left" gutterBottom>
+        <li>Move from simple process based diagrams to a more detailed nuanced understanding of your system</li>
+        <li>See sequencing of actions, flows between departments and identify how each of which departments/people are critical points to the process</li>
+        <li>Use the diagram to repurpose the flow, identify where to insert new technologies.Identify Data flows and transfer to ERP</li>
+        
         </Typography>
       </Box>
       <br />

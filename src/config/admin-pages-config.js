@@ -11,8 +11,8 @@ const adminPagesConfig = [
   },
   {
     // This is the configuration for the "Help" page
-    title: "Help",
-    route: "/help"
+    title: "About Us",
+    route: "/about"
   },
   {
     // This is the configuration for the "Login" page
