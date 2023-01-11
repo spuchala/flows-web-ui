@@ -7,11 +7,12 @@ import About from "../views/about/about";
 const RoutesConfig = () => {
   return (
     <Routes>
-      <Route exact path="/" element={<Home />} />
+      <Route exact path="/" element={<About />} /> 
+      {/* This is the main landing page  */}
       <Route exact path="/flows" element={<Home />} />
       <Route exact path="/flows-web-ui" element={<About />} />
-      <Route exact path="/departments" element={<Home />} />
-      <Route exact path="/people" element={<Home />} />
+      {/* <Route exact path="/departments" element={<About />} /> */}
+      {/* <Route exact path="/people" element={<Home />} /> */}
       <Route exact path="/about" element={<About />} />
     </Routes>
   );
