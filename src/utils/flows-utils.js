@@ -43,10 +43,12 @@ const getLayoutedElements = (flowData, direction = "TB") => {
 const getMermaidGraphFromFlowData = (flowData) => {
   const { edges, groups } = flowData;
   let graphContent = "graph LR;";
-  edges.forEach(({ source, target }) => {
+  edges.forEach(({ source, target, duration }) => {
     graphContent =
       graphContent +
-      `${source.replace(" ", "_")}-->${replaceSpaceWithUnderscore(target)};`;
+      `${source.replace(" ", "_")}-->|${duration}|${replaceSpaceWithUnderscore(
+        target
+      )};`;
   });
   groups.forEach((groupValues, groupName) => {
     graphContent = graphContent + `subgraph ${groupName};`;

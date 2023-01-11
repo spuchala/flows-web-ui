@@ -40,7 +40,7 @@ const getRelationshipsFromExcel = (fileReadData) => {
 
 const getRelationshipsForReactFlows = (input) => {
   let relationships = [];
-  input.forEach(({ fromParty, toParty }, index) => {
+  input.forEach(({ fromParty, toParty, duration }, index) => {
     relationships.push({
       id: index.toString(),
       source: fromParty,
@@ -48,7 +48,8 @@ const getRelationshipsForReactFlows = (input) => {
       type: edgeType,
       markerEnd: {
         type: MarkerType.ArrowClosed
-      }
+      },
+      duration
     });
   });
   return relationships;
