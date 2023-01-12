@@ -46,9 +46,9 @@ const getMermaidGraphFromFlowData = (flowData) => {
   edges.forEach(({ source, target, duration }) => {
     graphContent =
       graphContent +
-      `${source.replace(" ", "_")}-->|${duration}|${replaceSpaceWithUnderscore(
-        target
-      )};`;
+      `${replaceSpaceWithUnderscore(
+        source
+      )}-->|${duration}|${replaceSpaceWithUnderscore(target)};`;
   });
   groups.forEach((groupValues, groupName) => {
     graphContent = graphContent + `subgraph ${groupName};`;
@@ -57,6 +57,8 @@ const getMermaidGraphFromFlowData = (flowData) => {
     });
     graphContent = graphContent + "end;";
   });
+  graphContent =
+    graphContent + "linkStyle 0 stroke-width:4px,fill:none,stroke:red;";
   return graphContent;
 };
 

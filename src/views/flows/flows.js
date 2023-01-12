@@ -16,10 +16,10 @@ import {
   getMermaidSequenceDiagremFromFlowData
 } from "../../utils/flows-utils";
 import ReactFlows from "../../components/react-flows/react-flows";
-import "./home.css";
+import "./flows.css";
 import MermaidFlows from "../../components/mermaid-flows/mermaid-flows";
 
-const Home = () => {
+const Flows = () => {
   const [flowData, setFlowData] = useState(null);
   const [mermaidContent, setMermaidContent] = useState(null);
   const [flowLayoutChanged, setFlowLayoutChanged] = useState(false);
@@ -98,4 +98,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Flows;
