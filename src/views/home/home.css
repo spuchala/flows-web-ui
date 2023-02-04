@@ -1,0 +1,30 @@
+.mainSection {
+  align-items: center;
+  position: relative;
+  display: flex;
+  height: 80vh;
+  min-height: 300px;
+  max-height: 500px;
+  text-align: center;
+  color: white;
+  background-image: url("https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3538&q=80");
+}
+.mainContainer {
+  margin-left: auto;
+  margin-top: 24px;
+  margin-bottom: 112px;
+}
+.featuresSection {
+  text-align: center;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+}
+.featuresContainer {
+  flex-direction: row;
+  box-sizing: border-box;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 120px;
+  margin-bottom: 240px;
+}
