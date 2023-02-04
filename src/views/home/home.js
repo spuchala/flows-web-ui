@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Container, Typography, Grid, Box, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import "./home.css";
 
@@ -86,7 +87,8 @@ const Home = () => {
               variant="contained"
               color="primary"
               size="large"
-              component="label"
+              component={Link}
+              to="/flows"
             >
               GET STARTED
             </Button>
