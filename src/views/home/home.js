@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Typography, Grid, Box } from "@mui/material";
+import { Container, Typography, Grid, Box, Button } from "@mui/material";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import "./home.css";
 
@@ -81,6 +81,16 @@ const Home = () => {
               </Grid>
             </Grid>
           </Box>
+          <div className="getStartedContainer">
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              component="label"
+            >
+              GET STARTED
+            </Button>
+          </div>
         </Container>
       </section>
     </>
