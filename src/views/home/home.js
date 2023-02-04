@@ -51,6 +51,38 @@ const Home = () => {
           </Box>
         </Container>
       </section>
+      <section className="howItWorksSection">
+        <Container className="howItWorksContainer">
+          <Typography variant="h4" gutterBottom>
+            HOW IT WORKS
+          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={4} md={4}>
+                <AcUnitIcon />
+                <Typography>
+                  Feature One description goes here. Change the icon above this
+                  by googling MUI Icons and replace the icon above.
+                </Typography>
+              </Grid>
+              <Grid item xs={4} md={4}>
+                <AcUnitIcon />
+                <Typography>
+                  Feature Two description goes here. Change the icon above this
+                  by googling MUI Icons and replace the icon above.
+                </Typography>
+              </Grid>
+              <Grid item xs={4} md={4}>
+                <AcUnitIcon />
+                <Typography>
+                  Feature Three description goes here. Change the icon above
+                  this by googling MUI Icons and replace the icon above.
+                </Typography>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+      </section>
     </>
   );
 };

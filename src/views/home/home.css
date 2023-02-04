@@ -26,5 +26,19 @@
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 120px;
+  margin-bottom: 120px;
+}
+.howItWorksSection {
+  text-align: center;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+}
+.howItWorksContainer {
+  flex-direction: row;
+  box-sizing: border-box;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
   margin-bottom: 240px;
 }
