@@ -8,9 +8,9 @@ import Home from "../views/home/home";
 const RoutesConfig = () => {
   return (
     <Routes>
-      <Route exact path="/" element={<About />} />
+      <Route exact path="/" element={<Home />} />
       <Route exact path="/flows" element={<Flows />} />
-      <Route exact path="/flows-web-ui" element={<About />} />
+      <Route exact path="/flows-web-ui" element={<Home />} />
       <Route exact path="/about" element={<About />} />
       <Route exact path="/home" element={<Home />} />
     </Routes>
