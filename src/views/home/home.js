@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import "./home.css";
 
 const Home = () => {
@@ -23,11 +25,11 @@ const Home = () => {
             src="https://images.unsplash.com/photo-1534854638093-bada1813ca19?auto=format&amp;fit=crop&amp;w=1400"
             alt="increase priority"
           />
-          <Typography variant="h3" gutterBottom>
-            MAIN HEADING GOES HERE
+          <Typography variant="h4" gutterBottom>
+            DISCOVER, UNDERSTAND AND IMPROVE 
           </Typography>
-          <Typography variant="h5" gutterBottom>
-            Sub Heading Goes Here
+          <Typography variant="h4" gutterBottom>
+            Your Process ( Culture)
           </Typography>
         </Container>
       </section>
@@ -36,24 +38,21 @@ const Home = () => {
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon />
+                <AccountTreeIcon />
                 <Typography>
-                  Feature One description goes here. Change the icon above this
-                  by googling MUI Icons and replace the icon above.
+                Discover your process using our innovative low resistance survey methodologies by building from scratch. 
+                </Typography>
+              </Grid>
+              <Grid item xs={4} md={4}>
+                <LightbulbIcon/>
+                <Typography>
+                 Visualize how your staff interacts with your process. Overlay process, departments, technologies  and people to see the pinch points 
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <AcUnitIcon />
                 <Typography>
-                  Feature Two description goes here. Change the icon above this
-                  by googling MUI Icons and replace the icon above.
-                </Typography>
-              </Grid>
-              <Grid item xs={4} md={4}>
-                <AcUnitIcon />
-                <Typography>
-                  Feature Three description goes here. Change the icon above
-                  this by googling MUI Icons and replace the icon above.
+                  Use our tools to improve your process, see your how new technologies,  adding new process will change your organization and its effects  
                 </Typography>
               </Grid>
             </Grid>
