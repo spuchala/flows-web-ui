@@ -1,6 +1,14 @@
 import React from "react";
 
-import { Container, Typography, Grid, Box, Button } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Grid,
+  Box,
+  Button,
+  Divider,
+  Link as LinkButton
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import "./home.css";
@@ -95,6 +103,36 @@ const Home = () => {
           </div>
         </Container>
       </section>
+      <footer className="footerSection">
+        <Container className="footerContainer">
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={4} md={4}>
+                <Typography variant="h8" gutterBottom>
+                  FLOWS
+                </Typography>
+                <div className="footerDividerContainer">
+                  <Divider />
+                </div>
+                <LinkButton className="footerLink" component={Link} to="/flows">
+                  Create One
+                </LinkButton>
+              </Grid>
+              <Grid item xs={4} md={4}>
+                <Typography variant="h8" gutterBottom>
+                  ABOUT
+                </Typography>
+                <div className="footerDividerContainer">
+                  <Divider />
+                </div>
+                <LinkButton className="footerLink" component={Link} to="/about">
+                  About Us
+                </LinkButton>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+      </footer>
     </>
   );
 };

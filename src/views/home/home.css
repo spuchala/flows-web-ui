@@ -40,8 +40,29 @@
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 20px;
-  margin-bottom: 240px;
+  margin-bottom: 120px;
 }
 .getStartedContainer {
   margin-top: 80px;
+}
+.footerSection {
+  background-color: #fff5f8;
+  height: 200px;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+}
+.footerContainer {
+  flex-direction: row;
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 15px;
+}
+.footerDividerContainer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+}
+.footerLink {
+  color: #28282a;
 }
