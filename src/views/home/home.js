@@ -35,24 +35,51 @@ const Home = () => {
       </section>
       <section className="featuresSection">
         <Container className="featuresContainer">
+        <Typography variant="h4" gutterBottom>
+            FEATURES
+          </Typography>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={10}>
               <Grid item xs={4} md={4}>
                 <AccountTreeIcon />
+                <Typography variant="h6">Discover</Typography>
                 <Typography>
                 Discover your process using our innovative low resistance survey methodologies by building from scratch. 
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <LightbulbIcon/>
+                <Typography variant="h6">Visualize</Typography>
                 <Typography>
                  Visualize how your staff interacts with your process. Overlay process, departments, technologies  and people to see the pinch points 
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <AcUnitIcon />
+                <Typography variant="h6">Improve</Typography>
                 <Typography>
                   Use our tools to improve your process, see your how new technologies,  adding new process will change your organization and its effects  
+                </Typography>
+              </Grid>
+              <Grid item xs={4} md={4}>
+                <AcUnitIcon />
+                <Typography variant="h6">Integrate</Typography>
+                <Typography>
+                Our product can integrate with other tools and systems to provide a seamless workflow awareness. The data can be used by developers to build enterprise systems               
+                 </Typography>
+              </Grid>
+              <Grid item xs={4} md={4}>
+                <AcUnitIcon />
+                <Typography variant="h6">Collaborate</Typography>
+                <Typography>
+                Allow multiple stakeholders to collaborate and contribute to the process discovery and optimization process  
+                </Typography>
+              </Grid>
+              <Grid item xs={4} md={4}>
+                <AcUnitIcon />
+                <Typography variant="h6">Document</Typography>
+                <Typography>
+                We provide a platform for documenting and storing process information, making it easier for employees,clients and consultants to access and follow processes.
                 </Typography>
               </Grid>
             </Grid>
