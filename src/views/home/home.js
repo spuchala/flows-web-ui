@@ -13,6 +13,10 @@ import { Link } from "react-router-dom";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import Groups2Icon from '@mui/icons-material/Groups2';
+import ArticleIcon from '@mui/icons-material/Article';
+import MemoryIcon from '@mui/icons-material/Memory';
 import "./home.css";
 
 const Home = () => {
@@ -35,51 +39,51 @@ const Home = () => {
       </section>
       <section className="featuresSection">
         <Container className="featuresContainer">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h5" gutterBottom>
             FEATURES
           </Typography>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={10}>
               <Grid item xs={4} md={4}>
-                <AccountTreeIcon />
+                <AccountTreeIcon fontSize = "large"/>
                 <Typography variant="h6">Discover</Typography>
                 <Typography>
                 Discover your process using our innovative low resistance survey methodologies by building from scratch. 
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <LightbulbIcon/>
+                <LightbulbIcon fontSize = "large"/>
                 <Typography variant="h6">Visualize</Typography>
                 <Typography>
                  Visualize how your staff interacts with your process. Overlay process, departments, technologies  and people to see the pinch points 
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon />
-                <Typography variant="h6">Improve</Typography>
+                <MemoryIcon />
+                <Typography variant="h6">Optimize</Typography>
                 <Typography>
                   Use our tools to improve your process, see your how new technologies,  adding new process will change your organization and its effects  
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon />
+                <IntegrationInstructionsIcon />
                 <Typography variant="h6">Integrate</Typography>
                 <Typography>
                 Our product can integrate with other tools and systems to provide a seamless workflow awareness. The data can be used by developers to build enterprise systems               
                  </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon />
+                <Groups2Icon />
                 <Typography variant="h6">Collaborate</Typography>
                 <Typography>
                 Allow multiple stakeholders to collaborate and contribute to the process discovery and optimization process  
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon />
-                <Typography variant="h6">Document</Typography>
+                <ArticleIcon />
+                <Typography variant="h6">Documentation</Typography>
                 <Typography>
-                We provide a platform for documenting and storing process information, making it easier for employees,clients and consultants to access and follow processes.
+                We provide a platform for documenting and storing process information, making it easier for employees,clients and consultants to access and follow processes. You can see on timeline the whole change.
                 </Typography>
               </Grid>
             </Grid>
@@ -88,7 +92,7 @@ const Home = () => {
       </section>
       <section className="howItWorksSection">
         <Container className="howItWorksContainer">
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h5" gutterBottom>
             HOW IT WORKS
           </Typography>
           <Box sx={{ flexGrow: 1 }}>

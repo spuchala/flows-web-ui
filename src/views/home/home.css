@@ -15,7 +15,7 @@
   margin-bottom: 112px;
 }
 .featuresSection {
-  text-align: center;
+  text-align: left;
   display: flex;
   position: relative;
   flex-wrap: wrap;
@@ -29,7 +29,7 @@
   margin-bottom: 120px;
 }
 .howItWorksSection {
-  text-align: center;
+  text-align: left;
   display: flex;
   position: relative;
   flex-wrap: wrap;
