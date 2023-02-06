@@ -59,28 +59,28 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <MemoryIcon />
+                <MemoryIcon fontSize = "large"/>
                 <Typography variant="h6">Optimize</Typography>
                 <Typography>
                   Use our tools to improve your process, see your how new technologies,  adding new process will change your organization and its effects  
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <IntegrationInstructionsIcon />
+                <IntegrationInstructionsIcon fontSize = "large"/>
                 <Typography variant="h6">Integrate</Typography>
                 <Typography>
                 Our product can integrate with other tools and systems to provide a seamless workflow awareness. The data can be used by developers to build enterprise systems               
                  </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <Groups2Icon />
+                <Groups2Icon fontSize = "large"/>
                 <Typography variant="h6">Collaborate</Typography>
                 <Typography>
                 Allow multiple stakeholders to collaborate and contribute to the process discovery and optimization process  
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <ArticleIcon />
+                <ArticleIcon fontSize = "large"/>
                 <Typography variant="h6">Documentation</Typography>
                 <Typography>
                 We provide a platform for documenting and storing process information, making it easier for employees,clients and consultants to access and follow processes. You can see on timeline the whole change.
@@ -98,21 +98,21 @@ const Home = () => {
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon />
+                <AcUnitIcon fontSize = "large"/>
                 <Typography>
                   Feature One description goes here. Change the icon above this
                   by googling MUI Icons and replace the icon above.
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon />
+                <AcUnitIcon fontSize = "large"/>
                 <Typography>
                   Feature Two description goes here. Change the icon above this
                   by googling MUI Icons and replace the icon above.
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon />
+                <AcUnitIcon fontSize = "large"/>
                 <Typography>
                   Feature Three description goes here. Change the icon above
                   this by googling MUI Icons and replace the icon above.
