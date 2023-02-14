@@ -99,23 +99,25 @@ const Home = () => {
             <Grid container spacing={2}>
               <Grid item xs={4} md={4}>
                 <AcUnitIcon fontSize = "large"/>
+                <Typography variant="h6">Survey</Typography>
                 <Typography>
-                  Feature One description goes here. Change the icon above this
-                  by googling MUI Icons and replace the icon above.
+                Create a quick survey, add additional conditions like loops, existing process, departments if needed 
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <AcUnitIcon fontSize = "large"/>
+                <Typography variant="h6">Analyze</Typography>
                 <Typography>
-                  Feature Two description goes here. Change the icon above this
-                  by googling MUI Icons and replace the icon above.
+                 Gather all the information in one place, see conflicting and missing connections. Adjust the connections or identify 
+                 the changes as needed. Add additional information or send it back for confirmation 
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <AcUnitIcon fontSize = "large"/>
+                <Typography variant="h6">Collaborate</Typography>
                 <Typography>
-                  Feature Three description goes here. Change the icon above
-                  this by googling MUI Icons and replace the icon above.
+                 Collaborate with others in the organization. Identify bottle necks, pinch points, current wait times, loads on users and departments.
+                 
                 </Typography>
               </Grid>
             </Grid>
