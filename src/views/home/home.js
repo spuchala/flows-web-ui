@@ -17,6 +17,8 @@ import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstruct
 import Groups2Icon from '@mui/icons-material/Groups2';
 import ArticleIcon from '@mui/icons-material/Article';
 import MemoryIcon from '@mui/icons-material/Memory';
+import PollIcon from '@mui/icons-material/Poll';
+import SchemaIcon from '@mui/icons-material/Schema';
 import "./home.css";
 
 const Home = () => {
@@ -30,10 +32,10 @@ const Home = () => {
             alt="increase priority"
           />
           <Typography variant="h4" gutterBottom>
-            DISCOVER, UNDERSTAND AND IMPROVE 
+            Visualize Your Flows (a.k.a Culture)
           </Typography>
           <Typography variant="h4" gutterBottom>
-            Your Process ( Culture)
+           and Improve them
           </Typography>
         </Container>
       </section>
@@ -98,14 +100,14 @@ const Home = () => {
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon fontSize = "large"/>
+                <PollIcon fontSize = "large"/>
                 <Typography variant="h6">Survey</Typography>
                 <Typography>
                 Create a quick survey, add additional conditions like loops, existing process, departments if needed 
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon fontSize = "large"/>
+                <Sc fontSize = "large"/>
                 <Typography variant="h6">Analyze</Typography>
                 <Typography>
                  Gather all the information in one place, see conflicting and missing connections. Adjust the connections or identify 
@@ -113,7 +115,7 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <AcUnitIcon fontSize = "large"/>
+                <Groups2Icon fontSize = "large"/>
                 <Typography variant="h6">Collaborate</Typography>
                 <Typography>
                  Collaborate with others in the organization. Identify bottle necks, pinch points, current wait times, loads on users and departments.
