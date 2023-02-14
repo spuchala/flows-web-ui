@@ -107,7 +107,7 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
-                <Sc fontSize = "large"/>
+                <SchemaIcon fontSize = "large"/>
                 <Typography variant="h6">Analyze</Typography>
                 <Typography>
                  Gather all the information in one place, see conflicting and missing connections. Adjust the connections or identify 
