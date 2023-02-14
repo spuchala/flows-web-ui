@@ -83,7 +83,7 @@ const Home = () => {
                 <ArticleIcon fontSize = "large"/>
                 <Typography variant="h6">Documentation</Typography>
                 <Typography>
-                We provide a platform for documenting and storing process information, making it easier for employees,clients and consultants to access and follow processes. You can see on timeline the whole change.
+                We provide a1 platform for documenting and storing process information, making it easier for employees,clients and consultants to access and follow processes. You can see on timeline the whole change.
                 </Typography>
               </Grid>
             </Grid>
