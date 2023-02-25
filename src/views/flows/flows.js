@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Button from "@mui/material/Button";
+import { Button, Stack } from "@mui/material";
 import * as XLSX from "xlsx";
 import "reactflow/dist/style.css";
 
@@ -18,11 +18,13 @@ import {
 import ReactFlows from "../../components/react-flows/react-flows";
 import "./flows.css";
 import MermaidFlows from "../../components/mermaid-flows/mermaid-flows";
+import DropDown from "../../components/drop-down/drop-down";
+import { edgeInfoConfig, edgeInfoTypes } from "../../config/edge-info-config";
 
 const Flows = () => {
   const [flowData, setFlowData] = useState(null);
   const [mermaidContent, setMermaidContent] = useState(null);
-  const [flowLayoutChanged, setFlowLayoutChanged] = useState(false);
+  const [reRenderFlows, setReRenderFlows] = useState(false);
   const useReactFlows = false;
 
   const handleFileUpload = (e) => {
@@ -37,7 +39,10 @@ const Flows = () => {
 
       const flowData = getNodesEdgesAndGroupsFromExcel(fileReadData);
       const { layoutedNodes, layoutedEdges } = getLayoutedElements(flowData);
-      const mermaidContent = getMermaidGraphFromFlowData(flowData);
+      const mermaidContent = getMermaidGraphFromFlowData(
+        flowData,
+        edgeInfoTypes.EDGES_BY_DESCRIPTION
+      );
 
       setFlowData({
         nodes: layoutedNodes,
@@ -50,7 +55,7 @@ const Flows = () => {
   };
 
   const handleLayoutChange = (layoutType) => {
-    setFlowLayoutChanged(true);
+    setReRenderFlows(true);
     if (useReactFlows) {
       const { nodes, edges } = flowData;
       const { layoutedNodes, layoutedEdges } = getLayoutedElements(
@@ -61,13 +66,24 @@ const Flows = () => {
       setFlowData({ nodes: [...layoutedNodes], edges: [...layoutedEdges] });
     } else {
       if (layoutType === flowLayoutTypes.FLOW) {
-        setMermaidContent(getMermaidGraphFromFlowData(flowData));
+        setMermaidContent(
+          getMermaidGraphFromFlowData(
+            flowData,
+            edgeInfoTypes.EDGES_BY_DESCRIPTION
+          )
+        );
       } else if (layoutType === flowLayoutTypes.SEQUENCE_FLOW) {
-        debugger;
         setMermaidContent(getMermaidSequenceDiagremFromFlowData(flowData));
       }
     }
   };
+
+  const handleEdgeInfoChange = (changedValue) => {
+    setMermaidContent(getMermaidGraphFromFlowData(flowData, changedValue));
+    setReRenderFlows(true);
+  };
+
+  const handleShowFlowInFullScreen = () => {};
 
   return (
     <div className="container">
@@ -81,13 +97,33 @@ const Flows = () => {
             config={flowLayOutsConfig}
             callback={(layoutType) => handleLayoutChange(layoutType)}
           />
+          <Stack
+            direction={"row"}
+            spacing={2}
+            className="otherOptionsContainer"
+          >
+            <DropDown
+              title="Render diagram by edge type"
+              items={edgeInfoConfig}
+              selectedItem={edgeInfoConfig[0].value}
+              onChange={handleEdgeInfoChange}
+            />
+            <Button
+              variant="contained"
+              color="secondary"
+              component="label"
+              onClick={handleShowFlowInFullScreen}
+            >
+              Full Screen
+            </Button>
+          </Stack>
           <div className="flowsRenderContainer">
             {useReactFlows && flowData && (
               <ReactFlows nodes={flowData.nodes} edges={flowData.edges} />
             )}
             {!useReactFlows && mermaidContent && (
               <MermaidFlows
-                flowLayoutChanged={flowLayoutChanged}
+                reRenderFlows={reRenderFlows}
                 content={mermaidContent}
               />
             )}

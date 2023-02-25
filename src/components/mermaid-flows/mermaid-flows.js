@@ -6,17 +6,17 @@ mermaid.initialize({
   startOnLoad: true
 });
 
-const MermaidFlows = ({ content, flowLayoutChanged }) => {
+const MermaidFlows = ({ content, reRenderFlows }) => {
   console.log(content);
   useEffect(() => {
-    if (flowLayoutChanged) {
+    if (reRenderFlows) {
       const mermaidElement = document.getElementById("mermaid-chart");
       if (mermaidElement.hasAttribute("data-processed")) {
         mermaidElement.removeAttribute("data-processed");
       }
     }
     mermaid.contentLoaded();
-  }, [content, flowLayoutChanged]);
+  }, [content, reRenderFlows]);
 
   return (
     <div id="mermaid-chart" className="mermaid">

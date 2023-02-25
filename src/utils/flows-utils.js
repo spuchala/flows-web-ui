@@ -1,6 +1,7 @@
 import dagre from "dagre";
 
 import { replaceSpaceWithUnderscore } from "./text-utils";
+import { edgeInfoTypes } from "../config/edge-info-config";
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -40,15 +41,15 @@ const getLayoutedElements = (flowData, direction = "TB") => {
   return { layoutedNodes: nodes, layoutedEdges: edges };
 };
 
-const getMermaidGraphFromFlowData = (flowData) => {
+const getMermaidGraphFromFlowData = (flowData, edgeType) => {
   const { edges, groups } = flowData;
   let graphContent = "graph LR;";
   edges.forEach(({ source, target, duration, description }) => {
     graphContent =
       graphContent +
-      `${replaceSpaceWithUnderscore(
-        source
-      )}-->|${description}-${duration}|${replaceSpaceWithUnderscore(target)};`;
+      `${replaceSpaceWithUnderscore(source)}-->|${
+        edgeType === edgeInfoTypes.EDGES_BY_DESCRIPTION ? description : duration
+      }|${replaceSpaceWithUnderscore(target)};`;
   });
   groups.forEach((groupValues, groupName) => {
     graphContent = graphContent + `subgraph ${groupName};`;
@@ -74,6 +75,8 @@ const getMermaidSequenceDiagremFromFlowData = (flowData) => {
   });
   return graphContent;
 };
+
+const getFlowsSummary = (floeData) => {};
 
 export {
   getLayoutedElements,
