@@ -25,6 +25,7 @@ const Flows = () => {
   const [flowData, setFlowData] = useState(null);
   const [mermaidContent, setMermaidContent] = useState(null);
   const [reRenderFlows, setReRenderFlows] = useState(false);
+  const [edgeType, setEdgeType] = useState(edgeInfoTypes.EDGES_BY_DESCRIPTION);
   const useReactFlows = false;
 
   const handleFileUpload = (e) => {
@@ -39,10 +40,7 @@ const Flows = () => {
 
       const flowData = getNodesEdgesAndGroupsFromExcel(fileReadData);
       const { layoutedNodes, layoutedEdges } = getLayoutedElements(flowData);
-      const mermaidContent = getMermaidGraphFromFlowData(
-        flowData,
-        edgeInfoTypes.EDGES_BY_DESCRIPTION
-      );
+      const mermaidContent = getMermaidGraphFromFlowData(flowData, edgeType);
 
       setFlowData({
         nodes: layoutedNodes,
@@ -66,12 +64,7 @@ const Flows = () => {
       setFlowData({ nodes: [...layoutedNodes], edges: [...layoutedEdges] });
     } else {
       if (layoutType === flowLayoutTypes.FLOW) {
-        setMermaidContent(
-          getMermaidGraphFromFlowData(
-            flowData,
-            edgeInfoTypes.EDGES_BY_DESCRIPTION
-          )
-        );
+        setMermaidContent(getMermaidGraphFromFlowData(flowData, edgeType));
       } else if (layoutType === flowLayoutTypes.SEQUENCE_FLOW) {
         setMermaidContent(getMermaidSequenceDiagremFromFlowData(flowData));
       }
@@ -79,6 +72,7 @@ const Flows = () => {
   };
 
   const handleEdgeInfoChange = (changedValue) => {
+    setEdgeType(changedValue);
     setMermaidContent(getMermaidGraphFromFlowData(flowData, changedValue));
     setReRenderFlows(true);
   };
