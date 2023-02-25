@@ -63,15 +63,17 @@ const getMermaidGraphFromFlowData = (flowData, edgeType) => {
   return graphContent;
 };
 
-const getMermaidSequenceDiagremFromFlowData = (flowData) => {
+const getMermaidSequenceDiagremFromFlowData = (flowData, edgeType) => {
   const { edges } = flowData;
   let graphContent = "sequenceDiagram;autonumber;";
-  edges.forEach(({ source, target }) => {
+  edges.forEach(({ source, target, description, duration }) => {
     graphContent =
       graphContent +
       `${replaceSpaceWithUnderscore(source)}->>${replaceSpaceWithUnderscore(
         target
-      )}: ;`;
+      )}: ${
+        edgeType === edgeInfoTypes.EDGES_BY_DESCRIPTION ? description : duration
+      };`;
   });
   return graphContent;
 };

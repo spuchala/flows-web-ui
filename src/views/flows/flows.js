@@ -66,7 +66,9 @@ const Flows = () => {
       if (layoutType === flowLayoutTypes.FLOW) {
         setMermaidContent(getMermaidGraphFromFlowData(flowData, edgeType));
       } else if (layoutType === flowLayoutTypes.SEQUENCE_FLOW) {
-        setMermaidContent(getMermaidSequenceDiagremFromFlowData(flowData));
+        setMermaidContent(
+          getMermaidSequenceDiagremFromFlowData(flowData, edgeType)
+        );
       }
     }
   };
