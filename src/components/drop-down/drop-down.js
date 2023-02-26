@@ -21,8 +21,12 @@ export default function DropDown({ title, items, selectedItem, onChange }) {
           label={title}
           onChange={handleChange}
         >
-          {items.map(({ label, value }) => {
-            return <MenuItem value={value}>{label}</MenuItem>;
+          {items.map(({ label, value }, index) => {
+            return (
+              <MenuItem key={index} value={value}>
+                {label}
+              </MenuItem>
+            );
           })}
         </Select>
       </FormControl>

@@ -7,7 +7,6 @@ mermaid.initialize({
 });
 
 const MermaidFlows = ({ content, reRenderFlows }) => {
-  console.log(content);
   useEffect(() => {
     if (reRenderFlows) {
       const mermaidElement = document.getElementById("mermaid-chart");

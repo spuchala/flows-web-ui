@@ -78,10 +78,15 @@ const getMermaidSequenceDiagremFromFlowData = (flowData, edgeType) => {
   return graphContent;
 };
 
-const getFlowsSummary = (floeData) => {};
+const getFlowsSummary = (flowData) => {
+  const { nodes, edges } = flowData;
+  const summary = [{ label: "No Of People Involved", value: nodes.length }];
+  return summary;
+};
 
 export {
   getLayoutedElements,
   getMermaidGraphFromFlowData,
-  getMermaidSequenceDiagremFromFlowData
+  getMermaidSequenceDiagremFromFlowData,
+  getFlowsSummary
 };
