@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-import Stack from "@mui/material/Stack";
-import IconButton from "@mui/material/IconButton";
+import { Stack, Chip } from "@mui/material";
 
-const IconBar = ({ config, callback }) => {
+const ChipBar = ({ config, callback }) => {
   const [selectedOption, setSelectedOption] = useState(config[0].key);
 
   const handleOptionChange = (key) => {
@@ -12,20 +11,20 @@ const IconBar = ({ config, callback }) => {
   };
 
   return (
-    <Stack direction="row" spacing={0}>
-      {config.map(({ key, icon }) => {
+    <Stack direction="row" spacing={2}>
+      {config.map(({ key, info }) => {
         return (
-          <IconButton
+          <Chip
             onClick={() => handleOptionChange(key)}
             key={key}
+            label={info}
             color={selectedOption === key ? "primary" : "secondary"}
-          >
-            {icon}
-          </IconButton>
+            size="medium"
+          />
         );
       })}
     </Stack>
   );
 };
 
-export default IconBar;
+export default ChipBar;

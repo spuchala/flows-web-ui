@@ -4,7 +4,7 @@ import { Button, Stack } from "@mui/material";
 import * as XLSX from "xlsx";
 import "reactflow/dist/style.css";
 
-import IconBar from "../../components/icon-bar/icon-bar";
+import ChipBar from "../../components/chip-bar/chip-bar";
 import {
   flowLayOutsConfig,
   flowLayoutTypes
@@ -108,7 +108,7 @@ const Flows = () => {
       </Button>
       {flowData && (
         <div className="flowsContainer">
-          <IconBar
+          <ChipBar
             config={flowLayOutsConfig}
             callback={(layoutType) => handleLayoutChange(layoutType)}
           />

@@ -10,12 +10,12 @@ const flowLayOutsConfig = [
   {
     key: flowLayoutTypes.FLOW,
     icon: <AccountTreeIcon />,
-    info: "View Flow View"
+    info: "Graph"
   },
   {
     key: flowLayoutTypes.SEQUENCE_FLOW,
     icon: <ViewColumnIcon />,
-    info: "View Sequence Flow View"
+    info: "Sequence"
   }
 ];
 
