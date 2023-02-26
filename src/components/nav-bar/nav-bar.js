@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,12 +13,33 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AccounTreeIcon from "@mui/icons-material/AccountTree";
 
-import adminPagesConfig from "../../config/admin-pages-config";
-import userProfilePagessConfig from "../../config/user-profile-pages-config";
+import {
+  adminPagesConfig,
+  nonAdminPagesConfig,
+  publicPagesConfig,
+  userProfilePagesConfig
+} from "../../config/pages-config";
+import { isUserLoggedIn, isLoggedInUserAnAdmin } from "../../utils/user-utils";
+import UserContext from "../../app-context";
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [userContext] = useContext(UserContext);
+
+  const getPagesConfig = () => {
+    if (isUserLoggedIn(userContext)) {
+      if (isLoggedInUserAnAdmin(userContext)) {
+        return adminPagesConfig;
+      } else {
+        return nonAdminPagesConfig;
+      }
+    } else {
+      return publicPagesConfig;
+    }
+  };
+
+  const pagesConfig = getPagesConfig();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -86,7 +107,7 @@ const NavBar = () => {
                 display: { xs: "block", md: "none" }
               }}
             >
-              {adminPagesConfig.map(({ title }, index) => (
+              {pagesConfig.map(({ title }, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{title}</Typography>
                 </MenuItem>
@@ -113,48 +134,59 @@ const NavBar = () => {
             FLOWS
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {adminPagesConfig.map(({ title, route }, index) => (
+            {pagesConfig.map(({ title, route }, index) => (
               <Button
                 key={index}
                 //onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
-                href = {route}
+                href={route}
               >
-              {title}
+                {title}
               </Button>
             ))}
           </Box>
-
-          {userProfilePagessConfig.length > 0 && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right"
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right"
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {userProfilePagessConfig.map(({ title }, index) => (
-                  <MenuItem key={index} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{title}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+          {isUserLoggedIn(userContext) ? (
+            userProfilePagesConfig.length > 0 && (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {userProfilePagesConfig.map(({ title }, index) => (
+                    <MenuItem key={index} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{title}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            )
+          ) : (
+            <Button
+              sx={{ my: 2, color: "white", display: "block" }}
+              href={"/login"}
+            >
+              Login
+            </Button>
           )}
         </Toolbar>
       </Container>

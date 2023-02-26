@@ -122,6 +122,7 @@ const Flows = () => {
               items={edgeInfoConfig}
               selectedItem={edgeInfoConfig[0].value}
               onChange={handleEdgeInfoChange}
+              size="small"
             />
             <Button
               variant="contained"

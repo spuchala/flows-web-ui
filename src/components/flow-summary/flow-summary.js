@@ -9,7 +9,9 @@ import {
   ListItemAvatar,
   ListItemText,
   DialogActions,
-  Avatar
+  Avatar,
+  Divider,
+  Typography
 } from "@mui/material";
 import { blue } from "@mui/material/colors";
 
@@ -19,7 +21,10 @@ const FlowSummary = ({ summary, open, onCloseSummary }) => {
   };
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
-      <DialogTitle>Summary</DialogTitle>
+      <DialogTitle>
+        <Typography variant="h6">Summary</Typography>
+      </DialogTitle>
+      <Divider />
       <List sx={{ pt: 0 }}>
         {summary.map(({ label, value }, index) => (
           <ListItem key={index} disableGutters>

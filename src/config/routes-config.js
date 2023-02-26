@@ -5,6 +5,7 @@ import Flows from "../views/flows/flows";
 import About from "../views/about/about";
 import Home from "../views/home/home";
 import Surveys from "../views/surveys/surveys";
+import Login from "../views/login/login";
 
 const RoutesConfig = () => {
   return (
@@ -15,6 +16,7 @@ const RoutesConfig = () => {
       <Route exact path="/flows-web-ui" element={<Home />} />
       <Route exact path="/about" element={<About />} />
       <Route exact path="/home" element={<Home />} />
+      <Route exact path="/login" element={<Login />} />
     </Routes>
   );
 };
