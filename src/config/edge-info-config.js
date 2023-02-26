@@ -5,11 +5,11 @@ const edgeInfoTypes = {
 
 const edgeInfoConfig = [
   {
-    label: "Edges by description",
+    label: " Description",
     value: edgeInfoTypes.EDGES_BY_DESCRIPTION
   },
   {
-    label: "Edges by duration",
+    label: "Duration",
     value: edgeInfoTypes.EDGES_BY_DURATION
   }
 ];
