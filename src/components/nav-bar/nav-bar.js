@@ -22,10 +22,13 @@ import {
 import { isUserLoggedIn, isLoggedInUserAnAdmin } from "../../utils/user-utils";
 import UserContext from "../../app-context";
 
+import { useNavigate } from "react-router-dom";
+
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userContext] = useContext(UserContext);
+  const navigate = useNavigate();
 
   const getPagesConfig = () => {
     if (isUserLoggedIn(userContext)) {
@@ -54,6 +57,10 @@ const NavBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handlePageRouteClick = (route) => {
+    navigate(route);
   };
 
   return (
@@ -137,9 +144,8 @@ const NavBar = () => {
             {pagesConfig.map(({ title, route }, index) => (
               <Button
                 key={index}
-                //onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
-                href={route}
+                onClick={() => handlePageRouteClick(route)}
               >
                 {title}
               </Button>
