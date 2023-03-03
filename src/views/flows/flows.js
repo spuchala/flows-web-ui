@@ -23,6 +23,8 @@ import DropDown from "../../components/drop-down/drop-down";
 import { edgeInfoConfig, edgeInfoTypes } from "../../config/edge-info-config";
 import FlowSummary from "../../components/flow-summary/flow-summary";
 
+import { useNavigate } from "react-router-dom";
+
 const Flows = () => {
   const [flowData, setFlowData] = useState(null);
   const [mermaidContent, setMermaidContent] = useState(null);
@@ -31,6 +33,7 @@ const Flows = () => {
   const [edgeType, setEdgeType] = useState(edgeInfoTypes.EDGES_BY_DESCRIPTION);
   const [openSummary, setOpenSummary] = useState(false);
   const useReactFlows = false;
+  const navigate = useNavigate();
 
   const handleFileUpload = (e) => {
     e.preventDefault();
@@ -100,8 +103,21 @@ const Flows = () => {
     setOpenSummary(false);
   };
 
+  const handleFlowsFromSurveys = () => {
+    navigate("/surveys");
+  };
+
   return (
     <div className="container">
+      <Button
+        variant="contained"
+        color="secondary"
+        component="label"
+        onClick={handleFlowsFromSurveys}
+      >
+        Flow from surveys
+      </Button>
+      &nbsp; &nbsp;
       <Button variant="contained" color="secondary" component="label">
         Upload Excel
         <input type="file" onChange={handleFileUpload} hidden />
