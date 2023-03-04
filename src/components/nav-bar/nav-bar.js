@@ -189,7 +189,7 @@ const NavBar = () => {
           ) : (
             <Button
               sx={{ my: 2, color: "white", display: "block" }}
-              href={"/login"}
+              onClick={() => handlePageRouteClick("/login")}
             >
               Login
             </Button>
