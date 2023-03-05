@@ -19,13 +19,13 @@ const SurveyForm = ({ open, onCloseSurvey, onCreateSurvey, surveyFor }) => {
   };
 
   const handleCreateSurvey = () => {
-    onCreateSurvey();
+    onCreateSurvey(surveyFor);
   };
 
   const handlePeopleChange = () => {};
 
   const { people } = getOrgDepartmentPeopleDataToStorage();
-  debugger;
+
   const peopleForSurvey = people
     .filter(({ person }) => person !== surveyFor)
     .map(({ person }) => ({ label: person, value: person }));

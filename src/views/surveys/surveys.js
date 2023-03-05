@@ -19,7 +19,7 @@ const Surveys = () => {
   );
   const [surveyFor, setSurveyFor] = useState(null);
 
-  const handleCreateSurvey = (person) => {
+  const handleOpenCreateSurvey = (person) => {
     setSurveyFor(person);
     setOpenSurveyForm(true);
   };
@@ -33,6 +33,10 @@ const Surveys = () => {
     if (getOrgDepartmentPeopleDataToStorage()) {
       setOrgDepartmentsPeopleData(getOrgDepartmentPeopleDataToStorage());
     }
+  };
+
+  const handleCreateSurvey = (surveyFor) => {
+    setOpenSurveyForm(false);
   };
 
   return (
@@ -50,7 +54,7 @@ const Surveys = () => {
             <br />
             <PeopleTable
               people={orgDepartmentsPeopleData.people}
-              onCreateSurvey={(person) => handleCreateSurvey(person)}
+              onCreateSurvey={(person) => handleOpenCreateSurvey(person)}
             />
           </div>
         ) : (
@@ -76,7 +80,7 @@ const Surveys = () => {
           open={openSurveyForm}
           surveyFor={surveyFor}
           onCloseSurvey={() => setOpenSurveyForm(false)}
-          onCreateSurvey={() => setOpenSurveyForm(false)}
+          onCreateSurvey={(surveyFor) => handleCreateSurvey(surveyFor)}
         />
       )}
       {openOrgDepartmentsPeopleStepper && (
