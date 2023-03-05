@@ -13,6 +13,8 @@ import {
 
 import AddOrganization from "../org-departments-people-stepper/add-organization/add-organization";
 import AddDepartments from "./add-departments/add-departments";
+import AddPeople from "./add-people/add-people";
+import { setOrgDepartmentPeopleDataToStorage } from "../../utils/session-storage-utils";
 
 const OrgDepartmentsPeopleStepper = ({
   openOrgDepartmentsPeopleStepper = false,
@@ -32,7 +34,9 @@ const OrgDepartmentsPeopleStepper = ({
   };
 
   const handleNextStep = (event) => {
-    if (event.target.innerText === "submit") {
+    if (event.target.innerText.toLowerCase() === "submit") {
+      setOrgDepartmentPeopleDataToStorage(orgDeptsPeopleData);
+      onCloseOrgDepartmentsPeopleStepper();
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
@@ -44,6 +48,10 @@ const OrgDepartmentsPeopleStepper = ({
 
   const handleDepartmentsChange = (departments) => {
     setOrgDeptsPeopleData({ ...orgDeptsPeopleData, departments: departments });
+  };
+
+  const handlePeopleChange = (people) => {
+    setOrgDeptsPeopleData({ ...orgDeptsPeopleData, people: people });
   };
 
   const handleError = (error) => {
@@ -67,6 +75,14 @@ const OrgDepartmentsPeopleStepper = ({
             }
             onError={(error) => handleError(error)}
           ></AddDepartments>
+        );
+      case 2:
+        return (
+          <AddPeople
+            departments={orgDeptsPeopleData.departments}
+            onPeopleChange={(people) => handlePeopleChange(people)}
+            onError={(error) => handleError(error)}
+          ></AddPeople>
         );
       default:
         return "Unknown stepIndex";

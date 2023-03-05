@@ -31,7 +31,7 @@ const AddOrganization = ({ onOrganizationChange, onError }) => {
         value={organization}
         required={true}
         variant="outlined"
-        className="textFieldWidth"
+        className="orgTextWidth"
         onChange={(e) => handleOrganizationChange(e)}
         inputProps={{ maxLength: 100 }}
       />

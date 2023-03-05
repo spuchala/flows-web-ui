@@ -1,5 +1,8 @@
-const setUserRoleToSessionStorage = (userRole) => {
-  sessionStorage.setItem("role", userRole);
+const setOrgDepartmentPeopleDataToStorage = (orgDepartmentPeopleData) => {
+  sessionStorage.setItem(
+    "orgDepartmentPeople",
+    JSON.stringify(orgDepartmentPeopleData)
+  );
 };
 
-export { setUserRoleToSessionStorage };
+export { setOrgDepartmentPeopleDataToStorage };

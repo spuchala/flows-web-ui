@@ -52,7 +52,7 @@ const AddDepartments = ({ onDepartmentsChange, onError }) => {
               value={department}
               required={true}
               variant="outlined"
-              className="textFieldWidth"
+              className="departmentTextWidth"
               onChange={(e) => handleDepartmentChange(index, e)}
               inputProps={{ maxLength: 100 }}
             />

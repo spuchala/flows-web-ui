@@ -6,7 +6,8 @@ export default function DropDown({
   items,
   selectedItem,
   onChange,
-  size = "large"
+  size = "large",
+  width
 }) {
   const [selectedItemState, setSelectedItemState] = useState(selectedItem);
 
@@ -17,7 +18,7 @@ export default function DropDown({
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: width ? width : 120 }}>
       <FormControl fullWidth size={size}>
         <InputLabel id="demo-simple-select-label">{title}</InputLabel>
         <Select
