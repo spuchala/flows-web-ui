@@ -10,11 +10,14 @@ import { isEmpty } from "../../../utils";
 
 const AddPeople = ({ departments, onPeopleChange, onError }) => {
   const [people, setPeople] = useState([
-    { person: "", department: "", error: "" }
+    { person: "", department: departments[0].department, error: "" }
   ]);
 
   const handleAddPerson = () => {
-    setPeople([...people, { person: "", department: "", error: "" }]);
+    setPeople([
+      ...people,
+      { person: "", department: departments[0].department, error: "" }
+    ]);
   };
 
   const handleRemovePerson = (id) => {
@@ -78,9 +81,7 @@ const AddPeople = ({ departments, onPeopleChange, onError }) => {
                 minWidth={160}
                 items={getDepartments()}
                 onChange={(e) => handlePersonDepartmentChange(index, e)}
-                selectedItem={
-                  department === "" ? departments[0].department : department
-                }
+                selectedItem={department}
                 width={300}
               />
             )}
