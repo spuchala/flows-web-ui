@@ -1,0 +1,11 @@
+.orgDepartmentsPeopleDialogContent {
+  height: 400px;
+}
+.leftContainer {
+  flex: 1 0 0;
+}
+.rightContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 150;
+}
