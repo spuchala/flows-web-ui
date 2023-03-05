@@ -44,6 +44,8 @@ const Surveys = () => {
         />
         {orgDepartmentsPeopleData ? (
           <div className="surveysContainer">
+            <br />
+            <br />
             <PeopleTable
               people={orgDepartmentsPeopleData.people}
               onCreateSurvey={handleCreateSurvey}

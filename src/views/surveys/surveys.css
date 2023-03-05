@@ -4,8 +4,6 @@
 }
 
 .surveysContainer {
-  margin-top: 50px;
-  margin-left: 550px;
-  text-align: center;
-  width: 700px;
+  width: 1000px;
+  margin: 0 auto;
 }
