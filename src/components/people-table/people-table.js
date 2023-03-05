@@ -39,7 +39,7 @@ export default function PeopleTable({ people, onCreateSurvey }) {
                   variant="contained"
                   color="secondary"
                   component="label"
-                  onClick={onCreateSurvey}
+                  onClick={() => onCreateSurvey(person)}
                 >
                   Create Survey
                 </Button>
