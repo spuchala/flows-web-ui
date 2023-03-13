@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Switch, FormControlLabel } from "@mui/material";
 import * as XLSX from "xlsx";
 import "reactflow/dist/style.css";
 
@@ -32,7 +32,8 @@ const Flows = () => {
   const [flowType, setFlowType] = useState(flowLayoutTypes.FLOW);
   const [edgeType, setEdgeType] = useState(edgeInfoTypes.EDGES_BY_DESCRIPTION);
   const [openSummary, setOpenSummary] = useState(false);
-  const useReactFlows = false;
+  const [useReactFlows, setUseReactFlows] = useState(true);
+
   const navigate = useNavigate();
 
   const handleFileUpload = (e) => {
@@ -48,7 +49,6 @@ const Flows = () => {
       const flowData = getNodesEdgesAndGroupsFromExcel(fileReadData);
       const { layoutedNodes, layoutedEdges } = getLayoutedElements(flowData);
       const mermaidContent = getMermaidGraphFromFlowData(flowData, edgeType);
-
       setFlowData({
         nodes: layoutedNodes,
         edges: layoutedEdges,
@@ -124,39 +124,49 @@ const Flows = () => {
       </Button>
       {flowData && (
         <div className="flowsContainer">
-          <ChipBar
-            config={flowLayOutsConfig}
-            callback={(layoutType) => handleLayoutChange(layoutType)}
-          />
-          <Stack
-            direction={"row"}
-            spacing={2}
-            className="otherOptionsContainer"
-          >
-            <DropDown
-              title="Render diagram by edge type"
-              items={edgeInfoConfig}
-              selectedItem={edgeInfoConfig[0].value}
-              onChange={handleEdgeInfoChange}
-              size="small"
+          <Stack direction={"row"} spacing={2}>
+            <ChipBar
+              config={flowLayOutsConfig}
+              callback={(layoutType) => handleLayoutChange(layoutType)}
             />
-            <Button
-              variant="contained"
-              color="secondary"
-              component="label"
-              onClick={handleShowFlowInFullScreen}
-            >
-              Full Screen
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              component="label"
-              onClick={handleViewSummary}
-            >
-              View Summary
-            </Button>
+            <FormControlLabel
+              control={
+                <Switch onChange={() => setUseReactFlows(!useReactFlows)} />
+              }
+              label="Mermaid"
+            />
           </Stack>
+          {!useReactFlows && (
+            <Stack
+              direction={"row"}
+              spacing={2}
+              className="otherOptionsContainer"
+            >
+              <DropDown
+                title="Render diagram by edge type"
+                items={edgeInfoConfig}
+                selectedItem={edgeInfoConfig[0].value}
+                onChange={handleEdgeInfoChange}
+                size="small"
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                component="label"
+                onClick={handleShowFlowInFullScreen}
+              >
+                Full Screen
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                component="label"
+                onClick={handleViewSummary}
+              >
+                View Summary
+              </Button>
+            </Stack>
+          )}
           <div className="flowsRenderContainer">
             {useReactFlows && flowData && (
               <ReactFlows nodes={flowData.nodes} edges={flowData.edges} />

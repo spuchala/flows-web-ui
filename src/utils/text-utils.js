@@ -9,4 +9,8 @@ const replaceSpaceWithUnderscore = (text) => {
   return text.replace(" ", "_");
 };
 
-export { toCamelCase, replaceSpaceWithUnderscore };
+const replaceUnderscoreWithSpace = (text) => {
+  return text.replace("_", " ");
+};
+
+export { toCamelCase, replaceSpaceWithUnderscore, replaceUnderscoreWithSpace };

@@ -13,6 +13,7 @@ const initialNodes = [
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
 function ReactFlows({ nodes = { initialNodes }, edges = { initialEdges } }) {
+  debugger;
   return (
     <div className="flowsContainer">
       <div style={{ height: 700, width: 1500, textAlign: "center" }}>

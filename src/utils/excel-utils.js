@@ -2,6 +2,7 @@ import * as XLSX from "xlsx";
 import { MarkerType } from "reactflow";
 
 import { toCamelCase, replaceSpaceWithUnderscore } from "./text-utils";
+import { isEmpty } from "../utils";
 
 const basePosition = { x: 0, y: 0 };
 const edgeType = "smoothstep";
@@ -44,8 +45,8 @@ const getRelationshipsForReactFlows = (input) => {
     ({ fromParty, toParty, duration, description, technology }, index) => {
       relationships.push({
         id: index.toString(),
-        source: fromParty,
-        target: toParty,
+        source: replaceSpaceWithUnderscore(fromParty),
+        target: replaceSpaceWithUnderscore(toParty),
         type: edgeType,
         markerEnd: {
           type: MarkerType.ArrowClosed
@@ -67,8 +68,8 @@ const getNodesAndGroupsForReactFlows = (input) => {
     const nodeName = replaceSpaceWithUnderscore(name);
     nodes.push({
       id: nodeName,
-      parentNode: department,
-      data: { label: nodeName },
+      parentNode: isEmpty(department) ? null : department,
+      data: { label: name },
       position: basePosition
     });
 
@@ -80,8 +81,33 @@ const getNodesAndGroupsForReactFlows = (input) => {
       }
     }
   });
-
+  nodes = [...nodes, ...getParentNodesForReactFlowsGroups(nodes)];
   return { nodes, groups };
+};
+
+// for each node fetch the parent node since React Flows considers the parentNodes to be in the nodes as well
+const getParentNodesForReactFlowsGroups = (nodes) => {
+  let parentNodes = [];
+  nodes.forEach(({ parentNode }) => {
+    if (
+      !nodes.find(({ id }) => id === parentNode) &&
+      !parentNodes.find(({ id }) => id === parentNode) &&
+      !isEmpty(parentNode)
+    ) {
+      parentNodes.push({
+        id: parentNode,
+        data: { label: parentNode },
+        position: basePosition,
+        className: "light",
+        style: {
+          backgroundColor: "rgba(255, 0, 0, 0.2)",
+          width: 200,
+          height: 200
+        }
+      });
+    }
+  });
+  return parentNodes;
 };
 
 const synthesizeSheetFeed = (input) => {
