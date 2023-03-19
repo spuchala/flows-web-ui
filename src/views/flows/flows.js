@@ -62,10 +62,8 @@ const Flows = () => {
   const handleLayoutChange = (layoutType) => {
     setFlowType(layoutType);
     if (useReactFlows) {
-      const { nodes, edges } = flowData;
       const { layoutedNodes, layoutedEdges } = getLayoutedElements(
-        nodes,
-        edges,
+        flowData,
         layoutType
       );
       setFlowData({ nodes: [...layoutedNodes], edges: [...layoutedEdges] });

@@ -5,7 +5,7 @@ import { toCamelCase, replaceSpaceWithUnderscore } from "./text-utils";
 import { isEmpty } from "../utils";
 
 const basePosition = { x: 0, y: 0 };
-const edgeType = "smoothstep";
+const edgeType = "simplebezier";
 
 const getNodesEdgesAndGroupsFromExcel = (fileReadData) => {
   const edges = getRelationshipsFromExcel(fileReadData);
@@ -49,7 +49,7 @@ const getRelationshipsForReactFlows = (input) => {
         target: replaceSpaceWithUnderscore(toParty),
         type: edgeType,
         markerEnd: {
-          type: MarkerType.ArrowClosed
+          type: MarkerType.Arrow
         },
         duration,
         description,
@@ -68,7 +68,7 @@ const getNodesAndGroupsForReactFlows = (input) => {
     const nodeName = replaceSpaceWithUnderscore(name);
     nodes.push({
       id: nodeName,
-      parentNode: isEmpty(department) ? null : department,
+      //parentNode: isEmpty(department) ? null : department,
       data: { label: name },
       position: basePosition
     });
@@ -81,7 +81,7 @@ const getNodesAndGroupsForReactFlows = (input) => {
       }
     }
   });
-  nodes = [...nodes, ...getParentNodesForReactFlowsGroups(nodes)];
+  //nodes = [...nodes, ...getParentNodesForReactFlowsGroups(nodes)];
   return { nodes, groups };
 };
 

@@ -1,28 +1,18 @@
 import dagre from "dagre";
+import dagreD3 from "dagre-d3";
 
 import { replaceSpaceWithUnderscore } from "./text-utils";
 import { edgeInfoTypes } from "../config/edge-info-config";
 
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
 const nodeWidth = 150;
 const nodeHeight = 25;
 
 const getLayoutedElements = (flowData, direction = "TB") => {
   const { nodes, edges } = flowData;
   const isHorizontal = direction === "LR";
-  dagreGraph.setGraph({ rankdir: direction });
+  const dagreGraph = getLayoutByDagreD3Graph(nodes, edges, direction);
 
-  nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
-  });
-
-  edges.forEach((edge) => {
-    dagreGraph.setEdge(edge.source, edge.target);
-  });
-
-  dagre.layout(dagreGraph);
-
+  debugger;
   nodes.forEach((node) => {
     const nodeWithPosition = dagreGraph.node(node.id);
     node.targetPosition = isHorizontal ? "left" : "top";
@@ -41,9 +31,43 @@ const getLayoutedElements = (flowData, direction = "TB") => {
   return { layoutedNodes: nodes, layoutedEdges: edges };
 };
 
-const getMermaidGraphFromFlowData = (flowData, edgeType) => {
+const getLayoutByDagreGraph = (nodes, edges, direction) => {
+  const dagreGraph = new dagre.graphlib.Graph();
+  dagreGraph.setDefaultEdgeLabel(() => ({}));
+
+  dagreGraph.setGraph({ rankdir: direction });
+  nodes.forEach((node) => {
+    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+  });
+  edges.forEach((edge) => {
+    dagreGraph.setEdge(edge.source, edge.target);
+  });
+  dagre.layout(dagreGraph);
+  return dagreGraph;
+};
+
+const getLayoutByDagreD3Graph = (nodes, edges, direction) => {
+  const dagreD3Graph = new dagreD3.graphlib.Graph().setGraph({
+    rankdir: direction
+  });
+  nodes.forEach((node) => {
+    dagreD3Graph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+  });
+  edges.forEach((edge) => {
+    dagreD3Graph.setEdge(edge.source, edge.target);
+  });
+
+  try {
+    dagre.layout(dagreD3Graph);
+  } catch (error) {
+    return dagreD3Graph;
+  }
+  return dagreD3Graph;
+};
+
+const getMermaidGraphFromFlowData = (flowData, edgeType, direction = "TB") => {
   const { edges, groups } = flowData;
-  let graphContent = "graph LR;";
+  let graphContent = `graph ${direction};`;
   edges.forEach(({ source, target, duration, description }) => {
     graphContent =
       graphContent +
@@ -79,7 +103,7 @@ const getMermaidSequenceDiagremFromFlowData = (flowData, edgeType) => {
 };
 
 const getFlowsSummary = (flowData) => {
-  const { nodes, edges } = flowData;
+  const { nodes } = flowData;
   const summary = [{ label: "No Of People Involved", value: nodes.length }];
   return summary;
 };
