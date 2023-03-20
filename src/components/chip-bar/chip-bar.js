@@ -10,18 +10,35 @@ const ChipBar = ({ config, callback }) => {
     callback(key);
   };
 
+  const getPrimaryChip = (key, info) => {
+    return (
+      <Chip
+        onClick={() => handleOptionChange(key)}
+        key={key}
+        label={info}
+        color={selectedOption === key ? "primary" : "secondary"}
+        size="medium"
+      />
+    );
+  };
+
+  const getChip = (key, info) => {
+    return (
+      <Chip
+        onClick={() => handleOptionChange(key)}
+        key={key}
+        label={info}
+        size="medium"
+      />
+    );
+  };
+
   return (
     <Stack direction="row" spacing={2}>
       {config.map(({ key, info }) => {
-        return (
-          <Chip
-            onClick={() => handleOptionChange(key)}
-            key={key}
-            label={info}
-            color={selectedOption === key ? "primary" : "secondary"}
-            size="medium"
-          />
-        );
+        return selectedOption === key
+          ? getPrimaryChip(key, info)
+          : getChip(key, info);
       })}
     </Stack>
   );
