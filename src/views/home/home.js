@@ -30,11 +30,11 @@ const Home = () => {
             src="https://images.unsplash.com/photo-1534854638093-bada1813ca19?auto=format&amp;fit=crop&amp;w=1400"
             alt="increase priority"
           />
-          <Typography variant="h4" gutterBottom>
-            Visualize Your Flows (a.k.a Culture)
-          </Typography>
-          <Typography variant="h4" gutterBottom>
-            and Improve them
+          <Typography variant="h5" gutterBottom>
+          Discover, visualize, and optimize 
+                    </Typography>
+          <Typography variant="h6" gutterBottom>
+          your company processes and Improve them
           </Typography>
         </Container>
       </section>
@@ -49,53 +49,42 @@ const Home = () => {
                 <AccountTreeIcon fontSize="large" />
                 <Typography variant="h6">Discover</Typography>
                 <Typography>
-                  Discover your process using our innovative low resistance
-                  survey methodologies by building from scratch.
+                Take the guesswork out of your company's workflow by building a complete picture from the ground up with our easy-to-use survey tools
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <LightbulbIcon fontSize="large" />
                 <Typography variant="h6">Visualize</Typography>
                 <Typography>
-                  Visualize how your staff interacts with your process. Overlay
-                  process, departments, technologies and people to see the pinch
-                  points
+                Get a bird's eye view of your company's processes by overlaying departments, technologies, and people to identify bottlenecks and streamline workflow.
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <MemoryIcon fontSize="large" />
                 <Typography variant="h6">Optimize</Typography>
                 <Typography>
-                  Use our tools to improve your process, see your how new
-                  technologies, adding new process will change your organization
-                  and its effects
+                Fine-tune your company's workflow by exploring the effects of adding new processes or technologies, and uncover opportunities for growth and optimization.
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <IntegrationInstructionsIcon fontSize="large" />
                 <Typography variant="h6">Integrate</Typography>
                 <Typography>
-                  Our product can integrate with other tools and systems to
-                  provide a seamless workflow awareness. The data can be used by
-                  developers to build enterprise systems
+                Seamlessly integrate with other tools and systems to gain full visibility into your company's workflow and optimize for efficiency
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <Groups2Icon fontSize="large" />
                 <Typography variant="h6">Collaborate</Typography>
                 <Typography>
-                  Allow multiple stakeholders to collaborate and contribute to
-                  the process discovery and optimization process
+                Break down silos and facilitate teamwork by allowing stakeholders from different departments and functions to collaborate on the process discovery and optimization process
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <ArticleIcon fontSize="large" />
                 <Typography variant="h6">Documentation</Typography>
                 <Typography>
-                  We provide a1 platform for documenting and storing process
-                  information, making it easier for employees,clients and
-                  consultants to access and follow processes. You can see on
-                  timeline the whole change.
+                Keep all your company's process information organized and accessible with our comprehensive platform that simplifies access for employees, clients, and consultants.
                 </Typography>
               </Grid>
             </Grid>
@@ -113,27 +102,20 @@ const Home = () => {
                 <PollIcon fontSize="large" />
                 <Typography variant="h6">Survey</Typography>
                 <Typography>
-                  Create a quick survey, add additional conditions like loops,
-                  existing process, departments if needed
-                </Typography>
+                Quickly and easily create custom surveys tailored to your company's unique needs, including the ability to add loops, existing processes, and departments as needed.                </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <SchemaIcon fontSize="large" />
                 <Typography variant="h6">Analyze</Typography>
                 <Typography>
-                  Gather all the information in one place, see conflicting and
-                  missing connections. Adjust the connections or identify the
-                  changes as needed. Add additional information or send it back
-                  for confirmation
+                Cut through the complexity of process analysis by consolidating all relevant data in one place, and quickly identifying discrepancies or gaps. Use our tools to adjust or add connections as needed, and seamlessly confirm changes with stakeholders.
                 </Typography>
               </Grid>
               <Grid item xs={4} md={4}>
                 <Groups2Icon fontSize="large" />
                 <Typography variant="h6">Collaborate</Typography>
                 <Typography>
-                  Collaborate with others in the organization. Identify bottle
-                  necks, pinch points, current wait times, loads on users and
-                  departments.
+                Empower your team to work together to identify process inefficiencies by collaborating across departments and functions. Gain insight into current wait times, user loads, and departmental workflows to optimize processes.
                 </Typography>
               </Grid>
             </Grid>
