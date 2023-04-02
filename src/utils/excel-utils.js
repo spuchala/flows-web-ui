@@ -5,7 +5,7 @@ import { toCamelCase, replaceSpaceWithUnderscore } from "./text-utils";
 import { isEmpty } from "../utils";
 
 const basePosition = { x: 0, y: 0 };
-const edgeType = "simplebezier";
+const edgeType = "straight";
 
 const getNodesEdgesAndGroupsFromExcel = (fileReadData) => {
   const edges = getRelationshipsFromExcel(fileReadData);
@@ -68,7 +68,7 @@ const getNodesAndGroupsForReactFlows = (input) => {
     const nodeName = replaceSpaceWithUnderscore(name);
     nodes.push({
       id: nodeName,
-      //parentNode: isEmpty(department) ? null : department,
+      parentNode: isEmpty(department) ? null : department,
       data: { label: name },
       position: basePosition
     });
@@ -81,7 +81,7 @@ const getNodesAndGroupsForReactFlows = (input) => {
       }
     }
   });
-  //nodes = [...nodes, ...getParentNodesForReactFlowsGroups(nodes)];
+  nodes = [...nodes, ...getParentNodesForReactFlowsGroups(nodes)];
   return { nodes, groups };
 };
 
@@ -99,6 +99,8 @@ const getParentNodesForReactFlowsGroups = (nodes) => {
         data: { label: parentNode },
         position: basePosition,
         className: "light",
+        isParent: true,
+        type: "group",
         style: {
           backgroundColor: "rgba(255, 0, 0, 0.2)",
           width: 200,

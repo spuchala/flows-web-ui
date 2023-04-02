@@ -12,23 +12,68 @@ const getLayoutedElements = (flowData, direction = "TB") => {
   const isHorizontal = direction === "LR";
   const dagreGraph = getLayoutByDagreD3Graph(nodes, edges, direction);
 
-  debugger;
+  const nodesWithCordinates = getXYCoordinatesForANode(dagreGraph, nodes);
+  return { layoutedNodes: nodesWithCordinates, layoutedEdges: edges };
+};
+
+const getXYCoordinatesForANode = (dagreGraph, nodes) => {
+  const parentChildrenMap = {};
   nodes.forEach((node) => {
-    const nodeWithPosition = dagreGraph.node(node.id);
-    node.targetPosition = isHorizontal ? "left" : "top";
-    node.sourcePosition = isHorizontal ? "right" : "bottom";
-
-    // We are shifting the dagre node position (anchor=center center) to the top left
-    // so it matches the React Flow node anchor point (top left).
-    node.position = {
-      x: nodeWithPosition.x - nodeWidth / 2,
-      y: nodeWithPosition.y - nodeHeight / 2
-    };
-
-    return node;
+    if (!node.isParent && node.parentNode) {
+      if (parentChildrenMap[node.parentNode]) {
+        let childrenOfAParent = parentChildrenMap[node.parentNode];
+        childrenOfAParent.push(node);
+        parentChildrenMap[node.parentNode] = childrenOfAParent;
+      } else {
+        parentChildrenMap[node.parentNode] = [node];
+      }
+    } else {
+      const nodeDimensions = dagreGraph.node(node.id);
+      node.position = {
+        x: nodeDimensions.x,
+        y: nodeDimensions.y
+      };
+      node.style = {
+        height: nodeDimensions.height,
+        width: nodeDimensions.width
+      };
+    }
   });
 
-  return { layoutedNodes: nodes, layoutedEdges: edges };
+  Object.keys(parentChildrenMap).forEach((parentNodeId) => {
+    const parentNodeDimensions = dagreGraph.node(parentNodeId);
+
+    parentChildrenMap[parentNodeId].forEach((childNode, index) => {
+      const childNodeDimensions = dagreGraph.node(childNode.id);
+
+      // check if child is going out of parent box
+      if (
+        childNodeDimensions.x + childNodeDimensions.width >
+        parentNodeDimensions.width
+      ) {
+        const calculatedNewX = 20;
+        const calculatedNewY = 20 + index * 80;
+        childNode.position = {
+          x: calculatedNewX,
+          y: calculatedNewY
+        };
+        childNode.style = {
+          height: childNodeDimensions.height,
+          width: childNodeDimensions.width
+        };
+      } else {
+        childNode.position = {
+          x: childNodeDimensions.x,
+          y: childNodeDimensions.y
+        };
+        childNode.style = {
+          height: childNodeDimensions.height,
+          width: childNodeDimensions.width
+        };
+      }
+    });
+  });
+  return nodes;
 };
 
 const getLayoutByDagreGraph = (nodes, edges, direction) => {
@@ -47,12 +92,17 @@ const getLayoutByDagreGraph = (nodes, edges, direction) => {
 };
 
 const getLayoutByDagreD3Graph = (nodes, edges, direction) => {
-  const dagreD3Graph = new dagreD3.graphlib.Graph().setGraph({
+  const dagreD3Graph = new dagreD3.graphlib.Graph({ compound: true }).setGraph({
     rankdir: direction
   });
   nodes.forEach((node) => {
     dagreD3Graph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
   });
+
+  nodes.forEach((node) => {
+    dagreD3Graph.setParent(node.id, node.parentNode);
+  });
+
   edges.forEach((edge) => {
     dagreD3Graph.setEdge(edge.source, edge.target);
   });
