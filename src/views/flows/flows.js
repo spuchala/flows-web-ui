@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Stack, Switch, FormControlLabel } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import * as XLSX from "xlsx";
 import "reactflow/dist/style.css";
 
@@ -22,8 +22,13 @@ import MermaidFlows from "../../components/mermaid-flows/mermaid-flows";
 import DropDown from "../../components/drop-down/drop-down";
 import { edgeInfoConfig, edgeInfoTypes } from "../../config/edge-info-config";
 import FlowSummary from "../../components/flow-summary/flow-summary";
+import {
+  graphLibraryConfig,
+  graphLibraryTypes
+} from "../../config/graph-library-config";
 
 import { useNavigate } from "react-router-dom";
+import RadioButtonGroup from "../../components/radio-button-group/radio-button-group";
 
 const Flows = () => {
   const [flowData, setFlowData] = useState(null);
@@ -32,7 +37,9 @@ const Flows = () => {
   const [flowType, setFlowType] = useState(flowLayoutTypes.FLOW);
   const [edgeType, setEdgeType] = useState(edgeInfoTypes.EDGES_BY_DESCRIPTION);
   const [openSummary, setOpenSummary] = useState(false);
-  const [useReactFlows, setUseReactFlows] = useState(true);
+  const [activeGraphLibrary, setActiveGraphLibrary] = useState(
+    graphLibraryConfig.find((g) => g.isDefault).key
+  );
 
   const navigate = useNavigate();
 
@@ -61,13 +68,17 @@ const Flows = () => {
 
   const handleLayoutChange = (layoutType) => {
     setFlowType(layoutType);
-    if (useReactFlows) {
+
+    if (
+      activeGraphLibrary === graphLibraryTypes.REACT_FLOWS ||
+      activeGraphLibrary === graphLibraryTypes.CYTOSCAPE
+    ) {
       const { layoutedNodes, layoutedEdges } = getLayoutedElements(
         flowData,
         layoutType
       );
       setFlowData({ nodes: [...layoutedNodes], edges: [...layoutedEdges] });
-    } else {
+    } else if (activeGraphLibrary === graphLibraryTypes.MERMAID) {
       if (
         layoutType === flowLayoutTypes.GRAPH_LEFT_TO_RIGHT ||
         flowLayoutTypes.GRAPH_TOP_TO_BOTTOM
@@ -110,6 +121,10 @@ const Flows = () => {
     navigate("/surveys");
   };
 
+  const handleGraphLibraryChange = (library) => {
+    setActiveGraphLibrary(library);
+  };
+
   return (
     <div className="container">
       <Button
@@ -132,14 +147,15 @@ const Flows = () => {
               config={flowLayOutsConfig}
               callback={(layoutType) => handleLayoutChange(layoutType)}
             />
-            <FormControlLabel
-              control={
-                <Switch onChange={() => setUseReactFlows(!useReactFlows)} />
-              }
-              label="Mermaid"
-            />
+            <div className="graphLibraryTypesContainer">
+              <RadioButtonGroup
+                config={graphLibraryConfig}
+                selectedValue={activeGraphLibrary}
+                onChange={(library) => handleGraphLibraryChange(library)}
+              />
+            </div>
           </Stack>
-          {!useReactFlows && (
+          {activeGraphLibrary === graphLibraryTypes.MERMAID && (
             <Stack
               direction={"row"}
               spacing={2}
@@ -171,15 +187,17 @@ const Flows = () => {
             </Stack>
           )}
           <div className="flowsRenderContainer">
-            {useReactFlows && flowData && (
-              <ReactFlows nodes={flowData.nodes} edges={flowData.edges} />
-            )}
-            {!useReactFlows && mermaidContent && (
-              <MermaidFlows
-                reRenderFlows={reRenderFlows}
-                content={mermaidContent}
-              />
-            )}
+            {activeGraphLibrary === graphLibraryTypes.REACT_FLOWS &&
+              flowData && (
+                <ReactFlows nodes={flowData.nodes} edges={flowData.edges} />
+              )}
+            {activeGraphLibrary === graphLibraryTypes.MERMAID &&
+              mermaidContent && (
+                <MermaidFlows
+                  reRenderFlows={reRenderFlows}
+                  content={mermaidContent}
+                />
+              )}
           </div>
         </div>
       )}
