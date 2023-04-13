@@ -29,6 +29,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import RadioButtonGroup from "../../components/radio-button-group/radio-button-group";
+import CytoscapeFlows from "../../components/cytoscape-flows/cytoscape-flows";
 
 const Flows = () => {
   const [flowData, setFlowData] = useState(null);
@@ -198,6 +199,9 @@ const Flows = () => {
                   content={mermaidContent}
                 />
               )}
+            {activeGraphLibrary === graphLibraryTypes.CYTOSCAPE && flowData && (
+              <CytoscapeFlows />
+            )}
           </div>
         </div>
       )}
