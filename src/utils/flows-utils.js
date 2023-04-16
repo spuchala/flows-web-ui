@@ -9,7 +9,7 @@ const nodeHeight = 25;
 
 const getLayoutedElements = (flowData, direction = "TB") => {
   const { nodes, edges } = flowData;
-  const isHorizontal = direction === "LR";
+  getLayoutByDagreGraph(nodes, edges, direction);
   const dagreGraph = getLayoutByDagreD3Graph(nodes, edges, direction);
 
   const nodesWithCordinates = getXYCoordinatesForANode(dagreGraph, nodes);
@@ -137,7 +137,7 @@ const getMermaidGraphFromFlowData = (flowData, edgeType, direction = "TB") => {
   return graphContent;
 };
 
-const getMermaidSequenceDiagremFromFlowData = (flowData, edgeType) => {
+const getMermaidSequenceDiagramFromFlowData = (flowData, edgeType) => {
   const { edges } = flowData;
   let graphContent = "sequenceDiagram;autonumber;";
   edges.forEach(({ source, target, description, duration }) => {
@@ -161,6 +161,6 @@ const getFlowsSummary = (flowData) => {
 export {
   getLayoutedElements,
   getMermaidGraphFromFlowData,
-  getMermaidSequenceDiagremFromFlowData,
+  getMermaidSequenceDiagramFromFlowData,
   getFlowsSummary
 };

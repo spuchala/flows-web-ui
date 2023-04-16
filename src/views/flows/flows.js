@@ -13,7 +13,7 @@ import { getNodesEdgesAndGroupsFromExcel } from "../../utils/excel-utils";
 import {
   getLayoutedElements,
   getMermaidGraphFromFlowData,
-  getMermaidSequenceDiagremFromFlowData,
+  getMermaidSequenceDiagramFromFlowData,
   getFlowsSummary
 } from "../../utils/flows-utils";
 import ReactFlows from "../../components/react-flows/react-flows";
@@ -80,16 +80,17 @@ const Flows = () => {
       );
       setFlowData({ nodes: [...layoutedNodes], edges: [...layoutedEdges] });
     } else if (activeGraphLibrary === graphLibraryTypes.MERMAID) {
+      debugger;
       if (
         layoutType === flowLayoutTypes.GRAPH_LEFT_TO_RIGHT ||
-        flowLayoutTypes.GRAPH_TOP_TO_BOTTOM
+        layoutType === flowLayoutTypes.GRAPH_TOP_TO_BOTTOM
       ) {
         setMermaidContent(
           getMermaidGraphFromFlowData(flowData, edgeType, layoutType)
         );
       } else if (layoutType === flowLayoutTypes.SEQUENCE_FLOW) {
         setMermaidContent(
-          getMermaidSequenceDiagremFromFlowData(flowData, edgeType)
+          getMermaidSequenceDiagramFromFlowData(flowData, edgeType)
         );
       }
     }
@@ -97,12 +98,13 @@ const Flows = () => {
   };
 
   const handleEdgeInfoChange = (changedValue) => {
+    debugger;
     setEdgeType(changedValue);
     if (flowType === flowLayoutTypes.FLOW) {
       setMermaidContent(getMermaidGraphFromFlowData(flowData, changedValue));
     } else if (flowType === flowLayoutTypes.SEQUENCE_FLOW) {
       setMermaidContent(
-        getMermaidSequenceDiagremFromFlowData(flowData, changedValue)
+        getMermaidSequenceDiagramFromFlowData(flowData, changedValue)
       );
     }
     setReRenderFlows(true);
