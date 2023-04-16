@@ -18,12 +18,14 @@ const MermaidFlows = ({ content, reRenderFlows }) => {
   }, [content, reRenderFlows]);
 
   return (
-    <div
-      id="mermaid-chart"
-      className="mermaid"
-      style={{ width: "100%", height: "100%", border: "1px solid #16001E" }}
-    >
-      {content}
+    <div>
+      <div
+        id="mermaid-chart"
+        className="mermaid"
+        style={{ width: "100%", height: "100%", border: "1px solid #16001E" }}
+      >
+        {content}
+      </div>
     </div>
   );
 };

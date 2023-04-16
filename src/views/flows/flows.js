@@ -30,6 +30,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import RadioButtonGroup from "../../components/radio-button-group/radio-button-group";
 import CytoscapeFlows from "../../components/cytoscape-flows/cytoscape-flows";
+import EditFlow from "../../components/edit-flow/edit-flow";
 
 const Flows = () => {
   const [flowData, setFlowData] = useState(null);
@@ -38,6 +39,7 @@ const Flows = () => {
   const [flowType, setFlowType] = useState(flowLayoutTypes.FLOW);
   const [edgeType, setEdgeType] = useState(edgeInfoTypes.EDGES_BY_DESCRIPTION);
   const [openSummary, setOpenSummary] = useState(false);
+  const [openEditFlow, setOpenEditFlow] = useState(false);
   const [activeGraphLibrary, setActiveGraphLibrary] = useState(
     graphLibraryConfig.find((g) => g.isDefault).key
   );
@@ -80,7 +82,6 @@ const Flows = () => {
       );
       setFlowData({ nodes: [...layoutedNodes], edges: [...layoutedEdges] });
     } else if (activeGraphLibrary === graphLibraryTypes.MERMAID) {
-      debugger;
       if (
         layoutType === flowLayoutTypes.GRAPH_LEFT_TO_RIGHT ||
         layoutType === flowLayoutTypes.GRAPH_TOP_TO_BOTTOM
@@ -110,7 +111,9 @@ const Flows = () => {
     setReRenderFlows(true);
   };
 
-  const handleShowFlowInFullScreen = () => {};
+  const handleEditFlow = () => {
+    setOpenEditFlow(true);
+  };
 
   const handleViewSummary = () => {
     setOpenSummary(true);
@@ -118,6 +121,10 @@ const Flows = () => {
 
   const handleCloseSummary = () => {
     setOpenSummary(false);
+  };
+
+  const handleCloseEditFlow = () => {
+    setOpenEditFlow(false);
   };
 
   const handleFlowsFromSurveys = () => {
@@ -175,17 +182,17 @@ const Flows = () => {
                 variant="contained"
                 color="secondary"
                 component="label"
-                onClick={handleShowFlowInFullScreen}
+                onClick={handleViewSummary}
               >
-                Full Screen
+                Summary
               </Button>
               <Button
                 variant="contained"
                 color="secondary"
                 component="label"
-                onClick={handleViewSummary}
+                onClick={handleEditFlow}
               >
-                View Summary
+                Edit
               </Button>
             </Stack>
           )}
@@ -212,6 +219,14 @@ const Flows = () => {
           open={openSummary}
           summary={getFlowsSummary(flowData)}
           onCloseSummary={handleCloseSummary}
+        />
+      )}
+      {flowData && (
+        <EditFlow
+          open={openEditFlow}
+          nodes={flowData.nodes}
+          edges={flowData.edges}
+          onCloseEditFlow={handleCloseEditFlow}
         />
       )}
     </div>

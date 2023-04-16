@@ -13,12 +13,12 @@ const graphLibraryConfig = [
   {
     key: graphLibraryTypes.MERMAID,
     label: "Mermaid",
-    isDefault: false
+    isDefault: true
   },
   {
     key: graphLibraryTypes.CYTOSCAPE,
     label: "Cytoscape",
-    isDefault: true
+    isDefault: false
   }
 ];
 
