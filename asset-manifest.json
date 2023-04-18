@@ -1,15 +1,21 @@
 {
   "files": {
-    "main.css": "/flows-web-ui/static/css/main.749c9425.css",
-    "main.js": "/flows-web-ui/static/js/main.e56ae010.js",
+    "main.css": "/flows-web-ui/static/css/main.f1f0fb38.css",
+    "main.js": "/flows-web-ui/static/js/main.a01d7886.js",
+    "static/js/992.a0a2f600.chunk.js": "/flows-web-ui/static/js/992.a0a2f600.chunk.js",
+    "static/js/799.98c8eb18.chunk.js": "/flows-web-ui/static/js/799.98c8eb18.chunk.js",
+    "static/js/811.0ea2f94b.chunk.js": "/flows-web-ui/static/js/811.0ea2f94b.chunk.js",
     "static/js/787.f90f3017.chunk.js": "/flows-web-ui/static/js/787.f90f3017.chunk.js",
     "index.html": "/flows-web-ui/index.html",
-    "main.749c9425.css.map": "/flows-web-ui/static/css/main.749c9425.css.map",
-    "main.e56ae010.js.map": "/flows-web-ui/static/js/main.e56ae010.js.map",
+    "main.f1f0fb38.css.map": "/flows-web-ui/static/css/main.f1f0fb38.css.map",
+    "main.a01d7886.js.map": "/flows-web-ui/static/js/main.a01d7886.js.map",
+    "992.a0a2f600.chunk.js.map": "/flows-web-ui/static/js/992.a0a2f600.chunk.js.map",
+    "799.98c8eb18.chunk.js.map": "/flows-web-ui/static/js/799.98c8eb18.chunk.js.map",
+    "811.0ea2f94b.chunk.js.map": "/flows-web-ui/static/js/811.0ea2f94b.chunk.js.map",
     "787.f90f3017.chunk.js.map": "/flows-web-ui/static/js/787.f90f3017.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.749c9425.css",
-    "static/js/main.e56ae010.js"
+    "static/css/main.f1f0fb38.css",
+    "static/js/main.a01d7886.js"
   ]
 }
