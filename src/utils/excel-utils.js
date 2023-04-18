@@ -41,8 +41,9 @@ const getRelationshipsFromExcel = (fileReadData) => {
 
 const getRelationshipsForReactFlows = (input) => {
   let relationships = [];
+  debugger;
   input.forEach(
-    ({ fromParty, toParty, duration, description, technology }, index) => {
+    ({ fromParty, toParty, duration, description, technologyUsed }, index) => {
       relationships.push({
         id: index.toString(),
         source: replaceSpaceWithUnderscore(fromParty),
@@ -53,7 +54,7 @@ const getRelationshipsForReactFlows = (input) => {
         },
         duration,
         description,
-        technology
+        technologyUsed
       });
     }
   );
@@ -64,13 +65,16 @@ const getNodesAndGroupsForReactFlows = (input) => {
   let nodes = [];
   let groups = new Map();
 
-  input.forEach(({ name, department }) => {
+  input.forEach(({ name, description, department }) => {
     const nodeName = replaceSpaceWithUnderscore(name);
     nodes.push({
       id: nodeName,
       parentNode: isEmpty(department) ? null : department,
       data: { label: name },
-      position: basePosition
+      position: basePosition,
+      name: name,
+      description: description,
+      department: department
     });
 
     if (department) {

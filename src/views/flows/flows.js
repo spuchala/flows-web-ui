@@ -99,7 +99,6 @@ const Flows = () => {
   };
 
   const handleEdgeInfoChange = (changedValue) => {
-    debugger;
     setEdgeType(changedValue);
     if (flowType === flowLayoutTypes.FLOW) {
       setMermaidContent(getMermaidGraphFromFlowData(flowData, changedValue));
