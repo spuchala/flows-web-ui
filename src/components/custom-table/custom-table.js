@@ -1,12 +1,19 @@
 import React from "react";
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Stack,
+  IconButton
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/EditCalendar";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ClearIcon from "@mui/icons-material/Clear";
 
 export default function CustomTable({ config, data }) {
   debugger;
@@ -18,7 +25,7 @@ export default function CustomTable({ config, data }) {
             {config.map(({ key, label }) => {
               return <TableCell key={key}>{label}</TableCell>;
             })}
-            <TableCell></TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -29,6 +36,26 @@ export default function CustomTable({ config, data }) {
                   {config.map(({ key }) => {
                     return <TableCell key={key}>{row[key]}</TableCell>;
                   })}
+                  <TableCell>
+                    <Stack direction="row" spacing={1}>
+                      <IconButton
+                        color="primary"
+                        aria-label="edit person"
+                        component="label"
+                        size="small"
+                      >
+                        <EditIcon fontSize="inherit" />
+                      </IconButton>
+                      <IconButton
+                        color="secondary"
+                        aria-label="delete person"
+                        component="label"
+                        size="small"
+                      >
+                        <DeleteIcon fontSize="inherit" />
+                      </IconButton>
+                    </Stack>
+                  </TableCell>
                 </TableRow>
               )
           )}

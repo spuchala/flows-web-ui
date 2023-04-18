@@ -22,7 +22,7 @@ const FlowSummary = ({ summary, open, onCloseSummary }) => {
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
       <DialogTitle>
-        <Typography variant="h6">Summary</Typography>
+        <Typography>Summary</Typography>
       </DialogTitle>
       <Divider />
       <List sx={{ pt: 0 }}>

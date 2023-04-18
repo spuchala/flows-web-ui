@@ -25,7 +25,7 @@ const EditFlow = ({ open, onCloseEditFlow, onEditFlow, nodes, edges }) => {
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={onCloseEditFlow}>
       <DialogTitle>
-        <Typography variant="h6">Edit Flow</Typography>
+        <Typography>Edit Flow</Typography>
       </DialogTitle>
       <DialogContent>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
