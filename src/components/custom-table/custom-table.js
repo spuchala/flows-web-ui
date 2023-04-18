@@ -17,6 +17,10 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 export default function CustomTable({ config, data }) {
   debugger;
+  const handleEditRow = () => {};
+
+  const handleDeleteRow = () => {};
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="edit people table">
@@ -40,17 +44,19 @@ export default function CustomTable({ config, data }) {
                     <Stack direction="row" spacing={1}>
                       <IconButton
                         color="primary"
-                        aria-label="edit person"
+                        aria-label="edit"
                         component="label"
                         size="small"
+                        onClick={handleEditRow}
                       >
                         <EditIcon fontSize="inherit" />
                       </IconButton>
                       <IconButton
                         color="secondary"
-                        aria-label="delete person"
+                        aria-label="delete"
                         component="label"
                         size="small"
+                        onClick={handleDeleteRow}
                       >
                         <DeleteIcon fontSize="inherit" />
                       </IconButton>
