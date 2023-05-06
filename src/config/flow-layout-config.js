@@ -9,14 +9,14 @@ const flowLayoutTypes = {
 
 const flowLayOutsConfig = [
   {
-    key: flowLayoutTypes.GRAPH_LEFT_TO_RIGHT,
-    icon: <AccountTreeIcon />,
-    info: "Graph-Left-TO-Right"
-  },
-  {
     key: flowLayoutTypes.GRAPH_TOP_TO_BOTTOM,
     icon: <AccountTreeIcon />,
-    info: "Graph-Top-TO-Bottom"
+    info: "Graph-Top-to-Bottom"
+  },
+  {
+    key: flowLayoutTypes.GRAPH_LEFT_TO_RIGHT,
+    icon: <AccountTreeIcon />,
+    info: "Graph-Left-to-Right"
   },
   {
     key: flowLayoutTypes.SEQUENCE_FLOW,

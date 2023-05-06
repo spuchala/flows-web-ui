@@ -15,7 +15,7 @@ const MermaidFlows = ({ content, reRenderFlows }) => {
       }
     }
     mermaid.contentLoaded();
-  }, [content, reRenderFlows]);
+  }, [content]); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>

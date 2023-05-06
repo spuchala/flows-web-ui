@@ -18,7 +18,8 @@ const graphLibraryConfig = [
   {
     key: graphLibraryTypes.CYTOSCAPE,
     label: "Cytoscape",
-    isDefault: false
+    isDefault: false,
+    disabled: true
   }
 ];
 

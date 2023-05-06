@@ -15,14 +15,16 @@ const RadioButtonGroup = ({ label, config, selectedValue, onChange }) => {
         value={selectedValue}
         onChange={(event) => onChange(event.target.value)}
       >
-        {config.map(({ key, label }) => {
+        {config.map(({ key, label, disabled }) => {
           return (
-            <FormControlLabel
-              key={key}
-              value={key}
-              control={<Radio />}
-              label={label}
-            />
+            !disabled && (
+              <FormControlLabel
+                key={key}
+                value={key}
+                control={<Radio />}
+                label={label}
+              />
+            )
           );
         })}
       </RadioGroup>

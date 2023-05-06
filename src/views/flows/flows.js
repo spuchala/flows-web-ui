@@ -132,6 +132,7 @@ const Flows = () => {
 
   const handleGraphLibraryChange = (library) => {
     setActiveGraphLibrary(library);
+    setReRenderFlows(false);
   };
 
   return (

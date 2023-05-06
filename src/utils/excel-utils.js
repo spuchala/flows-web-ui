@@ -1,7 +1,7 @@
 import * as XLSX from "xlsx";
 import { MarkerType } from "reactflow";
 
-import { toCamelCase, replaceSpaceWithUnderscore } from "./text-utils";
+import { toCamelCase } from "./text-utils";
 import { isEmpty } from "../utils";
 
 const basePosition = { x: 0, y: 0 };
@@ -41,13 +41,12 @@ const getRelationshipsFromExcel = (fileReadData) => {
 
 const getRelationshipsForReactFlows = (input) => {
   let relationships = [];
-  debugger;
   input.forEach(
     ({ fromParty, toParty, duration, description, technologyUsed }, index) => {
       relationships.push({
         id: index.toString(),
-        source: replaceSpaceWithUnderscore(fromParty),
-        target: replaceSpaceWithUnderscore(toParty),
+        source: fromParty,
+        target: toParty,
         type: edgeType,
         markerEnd: {
           type: MarkerType.Arrow
@@ -66,7 +65,7 @@ const getNodesAndGroupsForReactFlows = (input) => {
   let groups = new Map();
 
   input.forEach(({ name, description, department }) => {
-    const nodeName = replaceSpaceWithUnderscore(name);
+    const nodeName = name;
     nodes.push({
       id: nodeName,
       parentNode: isEmpty(department) ? null : department,
