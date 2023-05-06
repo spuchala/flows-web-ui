@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Table,
@@ -9,17 +9,56 @@ import {
   TableRow,
   Paper,
   Stack,
-  IconButton
+  IconButton,
+  TextField
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/EditCalendar";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ClearIcon from "@mui/icons-material/Clear";
 
+import DropDown from "../drop-down/drop-down";
+import { isEmpty } from "../../utils";
+
 export default function CustomTable({ config, data }) {
-  debugger;
-  const handleEditRow = () => {};
+  const [editRowIndex, setEditRowIndex] = useState(-1);
+
+  const handleEditRow = (index) => {
+    debugger;
+    setEditRowIndex(index);
+  };
 
   const handleDeleteRow = () => {};
+
+  const getDistinctValuesForAColumn = (column) => {
+    let distinctValues = [];
+    const distinctSet = new Set();
+    data.forEach((row) => {
+      if (!isEmpty(row[column])) {
+        distinctSet.add(row[column]);
+      }
+    });
+
+    distinctSet.forEach((key) =>
+      distinctValues.push({ label: key, value: key })
+    );
+    return distinctValues;
+  };
+
+  const getEditableControl = (editableControl, key, value) => {
+    if (editableControl === "textBox") {
+      return <TextField label={key} value={value} variant="standard" />;
+    } else if (editableControl === "dropdown") {
+      return (
+        <DropDown
+          title={key}
+          minWidth={60}
+          items={getDistinctValuesForAColumn(key)}
+          selectedItem={value}
+          width={100}
+        />
+      );
+    }
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -37,8 +76,14 @@ export default function CustomTable({ config, data }) {
             (row, index) =>
               !row.isParent && (
                 <TableRow key={index}>
-                  {config.map(({ key }) => {
-                    return <TableCell key={key}>{row[key]}</TableCell>;
+                  {config.map(({ key, editableControl }) => {
+                    return (
+                      <TableCell key={key}>
+                        {editRowIndex !== index
+                          ? row[key]
+                          : getEditableControl(editableControl, key, row[key])}
+                      </TableCell>
+                    );
                   })}
                   <TableCell>
                     <Stack direction="row" spacing={1}>
@@ -47,7 +92,7 @@ export default function CustomTable({ config, data }) {
                         aria-label="edit"
                         component="label"
                         size="small"
-                        onClick={handleEditRow}
+                        onClick={() => handleEditRow(index)}
                       >
                         <EditIcon fontSize="inherit" />
                       </IconButton>
@@ -60,6 +105,17 @@ export default function CustomTable({ config, data }) {
                       >
                         <DeleteIcon fontSize="inherit" />
                       </IconButton>
+                      {editRowIndex === index && (
+                        <IconButton
+                          color="primary"
+                          aria-label="clear"
+                          component="label"
+                          size="small"
+                          onClick={() => setEditRowIndex(-1)}
+                        >
+                          <ClearIcon fontSize="inherit" />
+                        </IconButton>
+                      )}
                     </Stack>
                   </TableCell>
                 </TableRow>

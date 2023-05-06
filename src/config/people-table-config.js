@@ -12,7 +12,7 @@ const peopleTableConfig = [
   {
     key: "department",
     label: "Department",
-    editableControl: "textBox"
+    editableControl: "dropdown"
   }
 ];
 

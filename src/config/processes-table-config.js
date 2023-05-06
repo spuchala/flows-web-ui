@@ -2,12 +2,12 @@ const processesTableConfig = [
   {
     key: "source",
     label: "From Party",
-    editableControl: "textBox"
+    editableControl: "dropdown"
   },
   {
     key: "target",
     label: "To Party",
-    editableControl: "textBox"
+    editableControl: "dropdown"
   },
   {
     key: "description",
