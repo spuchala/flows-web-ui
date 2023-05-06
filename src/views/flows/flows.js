@@ -110,22 +110,6 @@ const Flows = () => {
     setReRenderFlows(true);
   };
 
-  const handleEditFlow = () => {
-    setOpenEditFlow(true);
-  };
-
-  const handleViewSummary = () => {
-    setOpenSummary(true);
-  };
-
-  const handleCloseSummary = () => {
-    setOpenSummary(false);
-  };
-
-  const handleCloseEditFlow = () => {
-    setOpenEditFlow(false);
-  };
-
   const handleFlowsFromSurveys = () => {
     navigate("/surveys");
   };
@@ -182,7 +166,7 @@ const Flows = () => {
                 variant="contained"
                 color="secondary"
                 component="label"
-                onClick={handleViewSummary}
+                onClick={() => setOpenSummary(true)}
               >
                 Summary
               </Button>
@@ -190,7 +174,7 @@ const Flows = () => {
                 variant="contained"
                 color="secondary"
                 component="label"
-                onClick={handleEditFlow}
+                onClick={() => setOpenEditFlow(true)}
               >
                 Edit
               </Button>
@@ -218,7 +202,7 @@ const Flows = () => {
         <FlowSummary
           open={openSummary}
           summary={getFlowsSummary(flowData)}
-          onCloseSummary={handleCloseSummary}
+          onCloseSummary={() => setOpenSummary(false)}
         />
       )}
       {flowData && (
@@ -226,7 +210,7 @@ const Flows = () => {
           open={openEditFlow}
           nodes={flowData.nodes}
           edges={flowData.edges}
-          onCloseEditFlow={handleCloseEditFlow}
+          onCloseEditFlow={() => setOpenEditFlow(false)}
         />
       )}
     </div>
