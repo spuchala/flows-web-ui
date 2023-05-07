@@ -58,6 +58,19 @@ const EditFlow = ({ open, onCloseEditFlow, onEditFlow, nodes, edges }) => {
 
     setNodesState(nodesStateClone);
     setEdgesState(edgesStateClone);
+    onEditFlow(nodesStateClone, edgesStateClone);
+  };
+
+  const handleEditEdge = (editedEdge) => {
+    const editedEdgeIndex = edges.findIndex(
+      ({ sourceId, targetId }) =>
+        sourceId === editedEdge.sourceId || targetId === sourceId.targetId
+    );
+    let edgesStateClone = [...edgesState];
+
+    edgesStateClone[editedEdgeIndex] = editedEdge;
+    setEdgesState(edgesStateClone);
+    onEditFlow(nodesState, edgesStateClone);
   };
 
   return (
@@ -82,7 +95,11 @@ const EditFlow = ({ open, onCloseEditFlow, onEditFlow, nodes, edges }) => {
           )}
           {activeTab === "processes" && (
             <div>
-              <CustomTable config={processesTableConfig} data={edgesState} />
+              <CustomTable
+                config={processesTableConfig}
+                data={edgesState}
+                onEditRow={(editedRow) => handleEditEdge(editedRow)}
+              />
             </div>
           )}
         </Box>

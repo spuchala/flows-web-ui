@@ -119,6 +119,14 @@ const Flows = () => {
     setReRenderFlows(false);
   };
 
+  const handleEditFlow = (editedNodes, editedEdges) => {
+    setFlowData({ nodes: editedNodes, edges: editedEdges });
+    setMermaidContent(
+      getMermaidGraphFromFlowData(flowData, edgeType, flowType)
+    );
+    setReRenderFlows(true);
+  };
+
   return (
     <div className="container">
       <Button
@@ -211,6 +219,7 @@ const Flows = () => {
           nodes={flowData.nodes}
           edges={flowData.edges}
           onCloseEditFlow={() => setOpenEditFlow(false)}
+          onEditFlow={(nodes, edges) => handleEditFlow(nodes, edges)}
         />
       )}
     </div>

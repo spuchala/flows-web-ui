@@ -70,6 +70,9 @@ export default function CustomTable({ config, data, onEditRow }) {
           items={getDistinctValuesForAColumn(key)}
           selectedItem={value}
           width={100}
+          onChange={(changedValue) =>
+            storeEditedRowLocally(index, key, changedValue)
+          }
         />
       );
     }
