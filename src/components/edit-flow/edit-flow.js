@@ -26,15 +26,14 @@ const EditFlow = ({ open, onCloseEditFlow, onEditFlow, flowData }) => {
   const handleEditNode = (editedNode) => {
     let nodesClone = [...flowDataState.nodes];
     let edgesClone = [...flowDataState.edges];
-    let groupsClone = [...flowDataState.groups];
 
     const editedNodeIndex = nodesClone.findIndex(
       ({ id }) => id === editedNode.id
     );
     const relatedEdgeIndexes = edgesClone
-      .map(({ sourceId, targetId }, index) =>
-        sourceId === nodesClone[editedNodeIndex].id ||
-        targetId === nodesClone[editedNodeIndex].id
+      .map(({ source, target }, index) =>
+        source === nodesClone[editedNodeIndex].id ||
+        target === nodesClone[editedNodeIndex].id
           ? index
           : -1
       )
@@ -42,36 +41,43 @@ const EditFlow = ({ open, onCloseEditFlow, onEditFlow, flowData }) => {
 
     nodesClone[editedNodeIndex] = editedNode;
     nodesClone[editedNodeIndex].data.label = editedNode.name;
+
     relatedEdgeIndexes.forEach((relatedEdgeIndex) => {
       if (
-        edgesClone[relatedEdgeIndex].sourceId === nodesClone[editedNodeIndex].id
+        edgesClone[relatedEdgeIndex].source === nodesClone[editedNodeIndex].id
       ) {
-        edgesClone[relatedEdgeIndex].source = editedNode.name;
+        edgesClone[relatedEdgeIndex].sourceName = editedNode.name;
       }
       if (
-        edgesClone[relatedEdgeIndex].targetId === nodesClone[editedNodeIndex].id
+        edgesClone[relatedEdgeIndex].target === nodesClone[editedNodeIndex].id
       ) {
-        edgesClone[relatedEdgeIndex].target = editedNode.name;
+        edgesClone[relatedEdgeIndex].targetName = editedNode.name;
       }
     });
 
-    setFlowDataState({
-      nodes: nodesClone,
-      edges: edgesClone,
-      groups: groupsClone
-    });
+    nodesClone[editedNodeIndex] = editedNode;
+    nodesClone[editedNodeIndex].data.label = editedNode.name;
+
+    setFlowDataState({ ...flowData, nodes: nodesClone, edges: edgesClone });
     onEditFlow(flowData);
   };
 
   const handleEditEdge = (editedEdge) => {
     const editedEdgeIndex = flowDataState.edges.findIndex(
-      ({ sourceId, targetId }) =>
-        sourceId === editedEdge.sourceId || targetId === sourceId.targetId
+      ({ source, target }) =>
+        source === editedEdge.source || target === editedEdge.target
+    );
+    const sourceNodeRelatedToEditedEdge = flowDataState.nodes.find(
+      (n) => n.name === editedEdge.sourceName
+    );
+    const targetNodeRelatedToEditedEdge = flowDataState.nodes.find(
+      (n) => n.name === editedEdge.targetName
     );
 
     let edgesClone = [...flowDataState.edges];
     edgesClone[editedEdgeIndex] = editedEdge;
-
+    edgesClone[editedEdgeIndex].source = sourceNodeRelatedToEditedEdge.id;
+    edgesClone[editedEdgeIndex].target = targetNodeRelatedToEditedEdge.id;
     setFlowDataState({ ...flowData, edges: edgesClone });
     onEditFlow(flowData);
   };

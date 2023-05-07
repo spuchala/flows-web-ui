@@ -116,19 +116,22 @@ const getLayoutByDagreD3Graph = (nodes, edges, direction) => {
 };
 
 const getMermaidGraphFromFlowData = (flowData, edgeType, direction = "TB") => {
-  const { edges, groups } = flowData;
+  const { nodes, edges, groups } = flowData;
   let graphContent = `graph ${direction};`;
   edges.forEach(({ source, target, duration, description }) => {
+    const sourceNode = nodes.find((n) => n.id === source);
+    const targetNode = nodes.find((n) => n.id === target);
+
     graphContent =
       graphContent +
-      `${replaceSpaceWithUnderscore(source)}-->|${
+      `${replaceSpaceWithUnderscore(sourceNode.name)}-->|${
         edgeType === edgeInfoTypes.EDGES_BY_DESCRIPTION ? description : duration
-      }|${replaceSpaceWithUnderscore(target)};`;
+      }|${replaceSpaceWithUnderscore(targetNode.name)};`;
   });
   groups.forEach((groupValues, groupName) => {
     graphContent = graphContent + `subgraph ${groupName};`;
     groupValues.forEach((nodeId) => {
-      const nodeInGroup = flowData.nodes.find((n) => n.id === nodeId);
+      const nodeInGroup = nodes.find((n) => n.id === nodeId);
       graphContent =
         graphContent + `${replaceSpaceWithUnderscore(nodeInGroup.name)};`;
     });

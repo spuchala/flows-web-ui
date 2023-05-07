@@ -30,7 +30,6 @@ const initialEdges = [
 function ReactFlows({ nodes = { initialNodes }, edges = { initialEdges } }) {
   const [nodesState, , onNodesChange] = useNodesState(nodes);
   const [edgesState, , onEdgesChange] = useEdgesState(edges);
-
   return (
     <div className="flowsContainer">
       <div

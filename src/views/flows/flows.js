@@ -120,7 +120,6 @@ const Flows = () => {
   };
 
   const handleEditFlow = (editedFlowData) => {
-    debugger;
     setFlowData(editedFlowData);
     setMermaidContent(
       getMermaidGraphFromFlowData(editedFlowData, edgeType, flowType)

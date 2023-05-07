@@ -46,10 +46,10 @@ const getRelationshipsForReactFlows = (input) => {
     ({ fromParty, toParty, duration, description, technologyUsed }, index) => {
       relationships.push({
         id: index.toString(),
-        source: fromParty,
-        sourceId: replaceSpaceWithUnderscore(fromParty),
-        target: toParty,
-        targetId: replaceSpaceWithUnderscore(toParty),
+        source: replaceSpaceWithUnderscore(fromParty),
+        target: replaceSpaceWithUnderscore(toParty),
+        sourceName: fromParty,
+        targetName: toParty,
         type: edgeType,
         markerEnd: {
           type: MarkerType.Arrow
