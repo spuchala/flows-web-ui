@@ -127,8 +127,10 @@ const getMermaidGraphFromFlowData = (flowData, edgeType, direction = "TB") => {
   });
   groups.forEach((groupValues, groupName) => {
     graphContent = graphContent + `subgraph ${groupName};`;
-    groupValues.forEach((value) => {
-      graphContent = graphContent + `${replaceSpaceWithUnderscore(value)};`;
+    groupValues.forEach((nodeId) => {
+      const nodeInGroup = flowData.nodes.find((n) => n.id === nodeId);
+      graphContent =
+        graphContent + `${replaceSpaceWithUnderscore(nodeInGroup.name)};`;
     });
     graphContent = graphContent + "end;";
   });

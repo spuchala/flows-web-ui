@@ -15,62 +15,65 @@ import CustomTable from "../custom-table/custom-table";
 import peopleTableConfig from "../../config/people-table-config";
 import processesTableConfig from "../../config/processes-table-config";
 
-const EditFlow = ({ open, onCloseEditFlow, onEditFlow, nodes, edges }) => {
+const EditFlow = ({ open, onCloseEditFlow, onEditFlow, flowData }) => {
   const [activeTab, setActiveTab] = useState("people");
-  const [nodesState, setNodesState] = useState(nodes);
-  const [edgesState, setEdgesState] = useState(edges);
+  const [flowDataState, setFlowDataState] = useState(flowData);
 
   const handleChange = (event, newValue) => {
     setActiveTab(newValue);
   };
 
   const handleEditNode = (editedNode) => {
-    let nodesStateClone = [...nodesState];
-    let edgesStateClone = [...edgesState];
+    let nodesClone = [...flowDataState.nodes];
+    let edgesClone = [...flowDataState.edges];
+    let groupsClone = [...flowDataState.groups];
 
-    const editedNodeIndex = nodes.findIndex(({ id }) => id === editedNode.id);
-    const relatedEdgeIndexes = edges
+    const editedNodeIndex = nodesClone.findIndex(
+      ({ id }) => id === editedNode.id
+    );
+    const relatedEdgeIndexes = edgesClone
       .map(({ sourceId, targetId }, index) =>
-        sourceId === nodes[editedNodeIndex].id ||
-        targetId === nodes[editedNodeIndex].id
+        sourceId === nodesClone[editedNodeIndex].id ||
+        targetId === nodesClone[editedNodeIndex].id
           ? index
           : -1
       )
       .filter((index) => index !== -1);
 
-    nodesStateClone[editedNodeIndex] = editedNode;
-    nodesStateClone[editedNodeIndex].data.label = editedNode.name;
-
+    nodesClone[editedNodeIndex] = editedNode;
+    nodesClone[editedNodeIndex].data.label = editedNode.name;
     relatedEdgeIndexes.forEach((relatedEdgeIndex) => {
       if (
-        edgesStateClone[relatedEdgeIndex].sourceId ===
-        nodesStateClone[editedNodeIndex].id
+        edgesClone[relatedEdgeIndex].sourceId === nodesClone[editedNodeIndex].id
       ) {
-        edgesStateClone[relatedEdgeIndex].source = editedNode.name;
+        edgesClone[relatedEdgeIndex].source = editedNode.name;
       }
       if (
-        edgesStateClone[relatedEdgeIndex].targetId ===
-        nodesStateClone[editedNodeIndex].id
+        edgesClone[relatedEdgeIndex].targetId === nodesClone[editedNodeIndex].id
       ) {
-        edgesStateClone[relatedEdgeIndex].target = editedNode.name;
+        edgesClone[relatedEdgeIndex].target = editedNode.name;
       }
     });
 
-    setNodesState(nodesStateClone);
-    setEdgesState(edgesStateClone);
-    onEditFlow(nodesStateClone, edgesStateClone);
+    setFlowDataState({
+      nodes: nodesClone,
+      edges: edgesClone,
+      groups: groupsClone
+    });
+    onEditFlow(flowData);
   };
 
   const handleEditEdge = (editedEdge) => {
-    const editedEdgeIndex = edges.findIndex(
+    const editedEdgeIndex = flowDataState.edges.findIndex(
       ({ sourceId, targetId }) =>
         sourceId === editedEdge.sourceId || targetId === sourceId.targetId
     );
-    let edgesStateClone = [...edgesState];
 
-    edgesStateClone[editedEdgeIndex] = editedEdge;
-    setEdgesState(edgesStateClone);
-    onEditFlow(nodesState, edgesStateClone);
+    let edgesClone = [...flowDataState.edges];
+    edgesClone[editedEdgeIndex] = editedEdge;
+
+    setFlowDataState({ ...flowData, edges: edgesClone });
+    onEditFlow(flowData);
   };
 
   return (
@@ -88,7 +91,7 @@ const EditFlow = ({ open, onCloseEditFlow, onEditFlow, nodes, edges }) => {
             <div>
               <CustomTable
                 config={peopleTableConfig}
-                data={nodesState}
+                data={flowDataState.nodes}
                 onEditRow={(editedRow) => handleEditNode(editedRow)}
               />
             </div>
@@ -97,7 +100,7 @@ const EditFlow = ({ open, onCloseEditFlow, onEditFlow, nodes, edges }) => {
             <div>
               <CustomTable
                 config={processesTableConfig}
-                data={edgesState}
+                data={flowDataState.edges}
                 onEditRow={(editedRow) => handleEditEdge(editedRow)}
               />
             </div>

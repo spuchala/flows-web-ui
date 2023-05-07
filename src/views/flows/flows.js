@@ -119,10 +119,11 @@ const Flows = () => {
     setReRenderFlows(false);
   };
 
-  const handleEditFlow = (editedNodes, editedEdges) => {
-    setFlowData({ nodes: editedNodes, edges: editedEdges });
+  const handleEditFlow = (editedFlowData) => {
+    debugger;
+    setFlowData(editedFlowData);
     setMermaidContent(
-      getMermaidGraphFromFlowData(flowData, edgeType, flowType)
+      getMermaidGraphFromFlowData(editedFlowData, edgeType, flowType)
     );
     setReRenderFlows(true);
   };
@@ -216,10 +217,9 @@ const Flows = () => {
       {flowData && (
         <EditFlow
           open={openEditFlow}
-          nodes={flowData.nodes}
-          edges={flowData.edges}
+          flowData={flowData}
           onCloseEditFlow={() => setOpenEditFlow(false)}
-          onEditFlow={(nodes, edges) => handleEditFlow(nodes, edges)}
+          onEditFlow={(flowData) => handleEditFlow(flowData)}
         />
       )}
     </div>

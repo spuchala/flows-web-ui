@@ -31,7 +31,6 @@ export default function CustomTable({ config, data, onEditRow }) {
   const handleDeleteRow = () => {};
 
   const getDistinctValuesForAColumn = (column) => {
-    debugger;
     let distinctValues = [];
     const distinctSet = new Set();
     data.forEach((row) => {
