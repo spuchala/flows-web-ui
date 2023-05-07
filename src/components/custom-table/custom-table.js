@@ -15,21 +15,23 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ClearIcon from "@mui/icons-material/Clear";
+import SaveIcon from "@mui/icons-material/Save";
 
 import DropDown from "../drop-down/drop-down";
 import { isEmpty } from "../../utils";
 
-export default function CustomTable({ config, data }) {
+export default function CustomTable({ config, data, onEditRow }) {
   const [editRowIndex, setEditRowIndex] = useState(-1);
+  const [editedRow, setEditedRow] = useState(null);
 
   const handleEditRow = (index) => {
-    debugger;
     setEditRowIndex(index);
   };
 
   const handleDeleteRow = () => {};
 
   const getDistinctValuesForAColumn = (column) => {
+    debugger;
     let distinctValues = [];
     const distinctSet = new Set();
     data.forEach((row) => {
@@ -44,9 +46,22 @@ export default function CustomTable({ config, data }) {
     return distinctValues;
   };
 
-  const getEditableControl = (editableControl, key, value) => {
+  const storeEditedRowLocally = (rowIndex, key, value) => {
+    const rowToBeEdited = data[rowIndex];
+    rowToBeEdited[key] = value;
+    setEditedRow(rowToBeEdited);
+  };
+
+  const getEditableControl = (editableControl, key, value, index) => {
     if (editableControl === "textBox") {
-      return <TextField label={key} value={value} variant="standard" />;
+      return (
+        <TextField
+          label={key}
+          value={value}
+          variant="standard"
+          onChange={(e) => storeEditedRowLocally(index, key, e.target.value)}
+        />
+      );
     } else if (editableControl === "dropdown") {
       return (
         <DropDown
@@ -58,6 +73,11 @@ export default function CustomTable({ config, data }) {
         />
       );
     }
+  };
+
+  const handleEditRowCallback = () => {
+    onEditRow(editedRow);
+    setEditRowIndex(-1);
   };
 
   return (
@@ -81,21 +101,49 @@ export default function CustomTable({ config, data }) {
                       <TableCell key={key}>
                         {editRowIndex !== index
                           ? row[key]
-                          : getEditableControl(editableControl, key, row[key])}
+                          : getEditableControl(
+                              editableControl,
+                              key,
+                              row[key],
+                              index
+                            )}
                       </TableCell>
                     );
                   })}
                   <TableCell>
                     <Stack direction="row" spacing={1}>
-                      <IconButton
-                        color="primary"
-                        aria-label="edit"
-                        component="label"
-                        size="small"
-                        onClick={() => handleEditRow(index)}
-                      >
-                        <EditIcon fontSize="inherit" />
-                      </IconButton>
+                      {editRowIndex === index ? (
+                        <>
+                          <IconButton
+                            color="primary"
+                            aria-label="save"
+                            component="label"
+                            size="small"
+                            onClick={handleEditRowCallback}
+                          >
+                            <SaveIcon fontSize="inherit" />
+                          </IconButton>
+                          <IconButton
+                            color="primary"
+                            aria-label="clear"
+                            component="label"
+                            size="small"
+                            onClick={() => setEditRowIndex(-1)}
+                          >
+                            <ClearIcon fontSize="inherit" />
+                          </IconButton>
+                        </>
+                      ) : (
+                        <IconButton
+                          color="primary"
+                          aria-label="edit"
+                          component="label"
+                          size="small"
+                          onClick={() => handleEditRow(index)}
+                        >
+                          <EditIcon fontSize="inherit" />
+                        </IconButton>
+                      )}
                       <IconButton
                         color="secondary"
                         aria-label="delete"
@@ -105,17 +153,6 @@ export default function CustomTable({ config, data }) {
                       >
                         <DeleteIcon fontSize="inherit" />
                       </IconButton>
-                      {editRowIndex === index && (
-                        <IconButton
-                          color="primary"
-                          aria-label="clear"
-                          component="label"
-                          size="small"
-                          onClick={() => setEditRowIndex(-1)}
-                        >
-                          <ClearIcon fontSize="inherit" />
-                        </IconButton>
-                      )}
                     </Stack>
                   </TableCell>
                 </TableRow>

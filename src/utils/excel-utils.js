@@ -3,6 +3,7 @@ import { MarkerType } from "reactflow";
 
 import { toCamelCase } from "./text-utils";
 import { isEmpty } from "../utils";
+import { replaceSpaceWithUnderscore } from "./text-utils";
 
 const basePosition = { x: 0, y: 0 };
 const edgeType = "straight";
@@ -46,7 +47,9 @@ const getRelationshipsForReactFlows = (input) => {
       relationships.push({
         id: index.toString(),
         source: fromParty,
+        sourceId: replaceSpaceWithUnderscore(fromParty),
         target: toParty,
+        targetId: replaceSpaceWithUnderscore(toParty),
         type: edgeType,
         markerEnd: {
           type: MarkerType.Arrow
@@ -65,7 +68,7 @@ const getNodesAndGroupsForReactFlows = (input) => {
   let groups = new Map();
 
   input.forEach(({ name, description, department }) => {
-    const nodeName = name;
+    const nodeName = replaceSpaceWithUnderscore(name);
     nodes.push({
       id: nodeName,
       parentNode: isEmpty(department) ? null : department,
