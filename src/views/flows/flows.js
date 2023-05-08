@@ -31,6 +31,7 @@ import { useNavigate } from "react-router-dom";
 import RadioButtonGroup from "../../components/radio-button-group/radio-button-group";
 import CytoscapeFlows from "../../components/cytoscape-flows/cytoscape-flows";
 import EditFlow from "../../components/edit-flow/edit-flow";
+import DagreD3Flows from "../../components/dagre-d3-flows/dagre-d3-flows";
 
 const Flows = () => {
   const [flowData, setFlowData] = useState(null);
@@ -157,37 +158,35 @@ const Flows = () => {
               />
             </div>
           </Stack>
-          {activeGraphLibrary === graphLibraryTypes.MERMAID && (
-            <Stack
-              direction={"row"}
-              spacing={2}
-              className="otherOptionsContainer"
+          <Stack
+            direction={"row"}
+            spacing={2}
+            className="otherOptionsContainer"
+          >
+            <DropDown
+              title="Render diagram by edge type"
+              items={edgeInfoConfig}
+              selectedItem={edgeInfoConfig[0].value}
+              onChange={handleEdgeInfoChange}
+              size="small"
+            />
+            <Button
+              variant="contained"
+              color="secondary"
+              component="label"
+              onClick={() => setOpenSummary(true)}
             >
-              <DropDown
-                title="Render diagram by edge type"
-                items={edgeInfoConfig}
-                selectedItem={edgeInfoConfig[0].value}
-                onChange={handleEdgeInfoChange}
-                size="small"
-              />
-              <Button
-                variant="contained"
-                color="secondary"
-                component="label"
-                onClick={() => setOpenSummary(true)}
-              >
-                Summary
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                component="label"
-                onClick={() => setOpenEditFlow(true)}
-              >
-                Edit
-              </Button>
-            </Stack>
-          )}
+              Summary
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              component="label"
+              onClick={() => setOpenEditFlow(true)}
+            >
+              Edit
+            </Button>
+          </Stack>
           <div className="flowsRenderContainer">
             {activeGraphLibrary === graphLibraryTypes.REACT_FLOWS &&
               flowData && (
@@ -202,6 +201,9 @@ const Flows = () => {
               )}
             {activeGraphLibrary === graphLibraryTypes.CYTOSCAPE && flowData && (
               <CytoscapeFlows />
+            )}
+            {activeGraphLibrary === graphLibraryTypes.D3 && flowData && (
+              <DagreD3Flows {...flowData} mermaidContent={mermaidContent} />
             )}
           </div>
         </div>

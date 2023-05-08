@@ -31,21 +31,17 @@ function ReactFlows({ nodes = { initialNodes }, edges = { initialEdges } }) {
   const [nodesState, , onNodesChange] = useNodesState(nodes);
   const [edgesState, , onEdgesChange] = useEdgesState(edges);
   return (
-    <div className="flowsContainer">
-      <div
-        style={{ width: "100%", height: "80vh", border: "1px solid #16001E" }}
+    <div style={{ width: "100%", height: "80vh", border: "1px solid #16001E" }}>
+      <ReactFlow
+        nodes={nodesState}
+        edges={edgesState}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        fitView
+        snapToGrid
       >
-        <ReactFlow
-          nodes={nodesState}
-          edges={edgesState}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          fitView
-          snapToGrid
-        >
-          <Background color="#99b3ec" />
-        </ReactFlow>
-      </div>
+        <Background color="#99b3ec" />
+      </ReactFlow>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 const graphLibraryTypes = {
   REACT_FLOWS: "reactFlows",
   MERMAID: "mermaid",
-  CYTOSCAPE: "cytoscape"
+  CYTOSCAPE: "cytoscape",
+  D3: "d3"
 };
 
 const graphLibraryConfig = [
@@ -20,6 +21,11 @@ const graphLibraryConfig = [
     label: "Cytoscape",
     isDefault: false,
     disabled: true
+  },
+  {
+    key: graphLibraryTypes.D3,
+    label: "D3",
+    isDefault: false
   }
 ];
 
